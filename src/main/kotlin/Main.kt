@@ -12,6 +12,7 @@ import androidx.compose.ui.window.application
 
 /*
  * @author Alfredo Sanz
+ * @date Nov 2021
  */
 @Composable
 @Preview
