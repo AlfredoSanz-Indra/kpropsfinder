@@ -1,9 +1,10 @@
 package es.kprops.data.commands.git.api
 
-import es.kprops.domain.model.git.GitAction
-import es.kprops.domain.model.git.GitResult
-
+/**
+ * @author Alfredo Sanz
+ * @time 2022
+ */
 interface GitPullCommandApi {
 
-    suspend fun doAction()
+    fun doAction()
 }

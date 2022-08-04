@@ -13,7 +13,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import es.kprops.core.di.UseCaseFactory
 import es.kprops.domain.api.antcases.AntUseCase
-import es.kprops.domain.usecases.antcases.AntUseCaseImpl
 
 
 /**
@@ -23,7 +22,7 @@ import es.kprops.domain.usecases.antcases.AntUseCaseImpl
 @Composable
 private fun rowOne() {
 
-    val antUseCase: AntUseCaseImpl =  UseCaseFactory.getAntUseCase()
+    val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
     val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF7BB661),
@@ -34,7 +33,7 @@ private fun rowOne() {
 
     OutlinedButton( modifier = Modifier.width(200.dp),
         colors = gitButtonsColor,
-        onClick = {antUseCase.gitPullAllKenobi() }
+        onClick = {antUseCase.gitPullAll() }
     )
     {
         Text("Git Pull All")
