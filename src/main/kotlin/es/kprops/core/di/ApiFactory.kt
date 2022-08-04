@@ -1,6 +1,6 @@
 package es.kprops.core.di
 
-import es.kprops.data.commands.git.repository.GitPullCommandApiImpl
+import es.kprops.data.commands.ant.repository.GitPullCommandApiImpl
 
 /**
  * @author Alfredo Sanz

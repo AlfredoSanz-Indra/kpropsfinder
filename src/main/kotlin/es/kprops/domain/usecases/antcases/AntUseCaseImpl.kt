@@ -2,9 +2,9 @@ package es.kprops.domain.usecases.antcases
 
 import es.kprops.core.di.RepoFactory
 import es.kprops.domain.api.antcases.AntUseCase
-import es.kprops.domain.model.git.GitAction
-import es.kprops.domain.model.git.GitResult
-import es.kprops.domain.repository.git.GitCommand
+import es.kprops.domain.model.ant.AntAction
+import es.kprops.domain.model.ant.AntResult
+import es.kprops.domain.repository.ant.GitCommand
 
 /**
  * @author Alfredo Sanz
@@ -16,7 +16,7 @@ class AntUseCaseImpl : AntUseCase {
 
     override fun gitPullAll() {
         println("gitPullAllKenobi")
-        val r: GitResult =  this.gitCommand.pullAll(GitAction("pull All Kenobi"))
+        val r: AntResult =  this.gitCommand.pullAll(AntAction("pull All Kenobi"))
         println(r.result)
     }
 }

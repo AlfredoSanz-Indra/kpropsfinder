@@ -1,6 +1,6 @@
 package es.kprops.core.di
 
-import es.kprops.data.repository.git.GitCommandImpl
+import es.kprops.data.repository.ant.GitCommandImpl
 
 /**
  * @author Alfredo Sanz
