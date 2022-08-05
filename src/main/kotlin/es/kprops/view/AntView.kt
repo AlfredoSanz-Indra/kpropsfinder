@@ -53,12 +53,26 @@ private fun rowOne() {
 @Composable
 private fun rowTwo() {
 
+    val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+
     val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0XFFe83151),
             contentColor = Color(0xFFF5F5F5),
             disabledContentColor = Color(0XFFe83151))
 
     Spacer(Modifier.width(20.dp))
+
+    OutlinedButton(modifier = Modifier.width(200.dp),
+        colors = copyButtonsColor,
+        onClick = {
+            antUseCase.openKenobiCmd()
+        })
+    {
+        Text("Open Kenobi cmd")
+    }
+
+    Spacer(Modifier.width(10.dp))
+
 
     OutlinedButton(modifier = Modifier.width(200.dp),
         colors = copyButtonsColor,
