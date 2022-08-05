@@ -8,6 +8,10 @@ import es.kprops.domain.model.ant.AntAction
 import es.kprops.domain.model.ant.AntResult
 import es.kprops.domain.repository.ant.KenobiCommand
 
+/**
+ * @author Alfredo Sanz
+ * @time 2022
+ */
 class KenobiCommandImpl : KenobiCommand {
 
     private val openKenobiCommandApi: OpenKenobiCommandApi = ApiFactory.getOpenKenobiCommandApi()
