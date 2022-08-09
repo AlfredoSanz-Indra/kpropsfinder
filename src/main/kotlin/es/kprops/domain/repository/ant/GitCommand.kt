@@ -9,4 +9,6 @@ import es.kprops.domain.model.ant.AntResult
  */
 interface GitCommand {
     fun pullAll(action: AntAction): AntResult
+
+    fun gitLog(action: AntAction): AntResult
 }

@@ -56,7 +56,7 @@ private fun rowTwo() {
     val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
     val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0XFFe83151),
+            backgroundColor = Color(0xFF387780),
             contentColor = Color(0xFFF5F5F5),
             disabledContentColor = Color(0XFFe83151))
 
@@ -77,9 +77,10 @@ private fun rowTwo() {
     OutlinedButton(modifier = Modifier.width(200.dp),
         colors = copyButtonsColor,
         onClick = {
+            antUseCase.launchKenobi()
         })
     {
-        Text("Copy PPRD1")
+        Text("Launch Server")
     }
 
     Spacer(Modifier.width(10.dp))
@@ -89,7 +90,73 @@ private fun rowTwo() {
         onClick = {
         })
     {
-        Text("Copy SIT2")
+        Text("Launch Tests")
+    }
+}
+
+@Composable
+private fun rowThree() {
+    val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+
+    val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
+        backgroundColor = Color(0xFF9381ff),
+        contentColor = Color(0xFFF5F5F5),
+        disabledContentColor = Color(0XFFe83151))
+
+    Spacer(Modifier.width(20.dp))
+
+    OutlinedButton(modifier = Modifier.width(200.dp),
+        colors = copyButtonsColor,
+        onClick = {
+            antUseCase.copyEnvPPRD1()
+        })
+    {
+        Text("Copy PPRD1")
+    }
+
+    Spacer(Modifier.width(10.dp))
+
+
+    OutlinedButton(modifier = Modifier.width(200.dp),
+        colors = copyButtonsColor,
+        onClick = {
+            antUseCase.copyEnvSit2()
+        })
+    {
+        Text("Copy Sit2")
+    }
+}
+
+@Composable
+private fun rowFour() {
+    val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+
+    val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
+        backgroundColor = Color(0XFFe83151),
+        contentColor = Color(0xFFF5F5F5),
+        disabledContentColor = Color(0XFFe83151))
+
+    Spacer(Modifier.width(20.dp))
+
+    OutlinedButton(modifier = Modifier.width(200.dp),
+        colors = copyButtonsColor,
+        onClick = {
+            antUseCase.launchKenobiInstall()
+        })
+    {
+        Text("Make Install")
+    }
+
+    Spacer(Modifier.width(10.dp))
+
+
+    OutlinedButton(modifier = Modifier.width(200.dp),
+        colors = copyButtonsColor,
+        onClick = {
+            antUseCase.buildProKenobi()
+        })
+    {
+        Text("Build Prod")
     }
 }
 
@@ -107,6 +174,18 @@ fun createAntView() {
 
             Row(Modifier.background(color = Color.White)) {
                 rowTwo()
+            }
+
+            Spacer(Modifier.height(20.dp))
+
+            Row(Modifier.background(color = Color.White)) {
+                rowThree()
+            }
+
+            Spacer(Modifier.height(20.dp))
+
+            Row(Modifier.background(color = Color.White)) {
+                rowFour()
             }
         }
     }

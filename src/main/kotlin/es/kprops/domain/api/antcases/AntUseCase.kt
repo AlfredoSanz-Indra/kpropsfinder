@@ -7,5 +7,19 @@ package es.kprops.domain.api.antcases
 interface AntUseCase {
     fun gitPullAll()
 
+    fun gitLog()
+
     fun openKenobiCmd()
+
+    fun launchKenobi()
+
+    fun launchKenobiTest()
+
+    fun copyEnvPPRD1()
+
+    fun copyEnvSit2()
+
+    fun launchKenobiInstall()
+
+    fun buildProKenobi()
 }

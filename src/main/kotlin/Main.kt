@@ -35,11 +35,11 @@ private fun app(action: String) {
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() = application {
 
-    var action by remember { mutableStateOf("Last action: None") }
+    var action by remember { mutableStateOf("ANT") }
 
     Window(onCloseRequest = ::exitApplication,
            title = "VF Alfred toolbox  v0.1",
-           state = rememberWindowState(width = 600.dp, height = 600.dp)
+           state = rememberWindowState(width = 800.dp, height = 600.dp)
     ) {
         MenuBar {
             Menu("Scopes", mnemonic = 'F') {

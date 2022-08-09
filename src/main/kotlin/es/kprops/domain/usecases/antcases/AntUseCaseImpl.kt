@@ -24,9 +24,39 @@ class AntUseCaseImpl : AntUseCase {
 
 
     override fun openKenobiCmd() {
-        println("openKenobiCmd")
+        println("AntUseCase - openKenobiCmd")
         val r: AntResult = this.kenobiCommand.openKenobiCmd(AntAction("Open console Kenoby path"))
         println("openKenobiCmd result=${r.result}")
+
+    }
+
+    override fun gitLog() {
+
+    }
+
+    override fun launchKenobi(){
+        println("AntUseCase - launchKenobi ")
+        val r: AntResult = this.kenobiCommand.launchKenobiServer(AntAction("Launch kenobi server in a new console"))
+        println("\"AntUseCase - launchKenobi sresult=${r.result}")
+    }
+
+    override fun launchKenobiTest(){
+
+    }
+
+    override fun copyEnvPPRD1(){
+
+    }
+
+    override fun copyEnvSit2(){
+
+    }
+
+    override fun launchKenobiInstall(){
+
+    }
+
+    override fun buildProKenobi(){
 
     }
 }
