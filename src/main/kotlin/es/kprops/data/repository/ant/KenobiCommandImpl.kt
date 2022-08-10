@@ -46,22 +46,57 @@ class KenobiCommandImpl : KenobiCommand {
     }
 
     override fun launchKenobiTest(action: AntAction): AntResult {
-        return KenobyResultEntity("Not Implemented").toKenobiResult()
+        println("KenobiCommandImpl - launchKenobiTest")
+        try {
+            this.launchKenobiTestsCommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
     }
 
     override fun copyEnvPPRD1(action: AntAction): AntResult {
-        return KenobyResultEntity("Not Implemented").toKenobiResult()
+        println("KenobiCommandImpl - copyEnvPPRD1")
+        try {
+            this.copyEnvPPRD1CommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
     }
 
     override fun copyEnvSit2(action: AntAction): AntResult {
-        return KenobyResultEntity("Not Implemented").toKenobiResult()
+        println("KenobiCommandImpl - copyEnvSit2")
+        try {
+            this.copyEnvSit2KenobiCommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
     }
 
     override fun launchKenobiInstall(action: AntAction): AntResult {
-        return KenobyResultEntity("Not Implemented").toKenobiResult()
+        println("KenobiCommandImpl - launchKenobiInstall")
+        try {
+            this.launchKenobiInstallCommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
     }
 
     override fun buildProKenobi(action: AntAction): AntResult {
-        return KenobyResultEntity("Not Implemented").toKenobiResult()
+        println("KenobiCommandImpl - buildProKenobi")
+        try {
+            this.buildProKenobiCommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
     }
 }

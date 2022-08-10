@@ -10,13 +10,8 @@ import es.kprops.data.commands.ant.api.CopyEnvSit2CommandApi
 class CopyEnvSit2CommandApiImpl : CopyEnvSit2CommandApi {
 
     override fun doAction() {
-        println("doAction")
-
-        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotokenobi
-        println("doAction route: $route ")
-
+        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotosit2
         val command = "cmd /c start $route"
-        println("doAction executing command: $command")
         Runtime.getRuntime().exec(command)
     }
 }

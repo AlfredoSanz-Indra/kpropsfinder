@@ -10,13 +10,8 @@ import es.kprops.data.commands.ant.api.CopyEnvPPRD1CommandApi
 class CopyEnvPPRD1CommandApiImpl : CopyEnvPPRD1CommandApi {
 
     override fun doAction() {
-        println("doAction")
-
-        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotopull
-        println("doAction route: $route ")
-
+        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotopprd1
         val command = "cmd /c start $route"
-        println("doAction executing command: $command")
         Runtime.getRuntime().exec(command)
     }
 }

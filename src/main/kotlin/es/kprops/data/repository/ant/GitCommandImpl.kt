@@ -30,6 +30,13 @@ class GitCommandImpl: GitCommand {
     }
 
     override fun gitLog(action: AntAction): AntResult {
-        return GitResultEntity("Not Implemented yet").toGitResult()
+        println("GitCommandImpl - Log")
+        try {
+            this.GitLogCommandApi.doAction()
+        }
+        catch(e: Exception) {
+            return GitResultEntity("KO").toGitResult()
+        }
+        return GitResultEntity("OK").toGitResult()
     }
 }

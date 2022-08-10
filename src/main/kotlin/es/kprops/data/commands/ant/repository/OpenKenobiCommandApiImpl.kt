@@ -10,8 +10,6 @@ import es.kprops.data.commands.ant.api.OpenKenobiCommandApi
 class OpenKenobiCommandApiImpl : OpenKenobiCommandApi {
 
     override fun doAction() {
-        println("OpenKenobiCommandApiImpl - doAction")
-
         val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotokenobi
         val command = "cmd /c start $route"
         Runtime.getRuntime().exec(command)

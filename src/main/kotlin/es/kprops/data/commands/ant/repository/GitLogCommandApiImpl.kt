@@ -10,13 +10,8 @@ import es.kprops.data.commands.ant.api.GitLogCommandApi
 class GitLogCommandApiImpl : GitLogCommandApi {
 
     override fun doAction() {
-        println("doAction")
-
-        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotopull
-        println("doAction route: $route ")
-
+        val route: String =   Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotolog
         val command = "cmd /c start $route"
-        println("doAction executing command: $command")
         Runtime.getRuntime().exec(command)
     }
 }
