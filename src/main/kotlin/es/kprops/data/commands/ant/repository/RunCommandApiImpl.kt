@@ -14,6 +14,8 @@ class RunCommandApiImpl: CommandApi {
 
         val route: String = getRoute(commandAction)
         val command = "cmd /c start $route"
+
+        println("doAction: Executing command ->  $command")
         Runtime.getRuntime().exec(command)
     }
 
