@@ -6,5 +6,5 @@ package es.kprops.data.commands.ant.api
  */
 interface CommandApi {
 
-    fun doAction()
+    fun doAction(command: String)
 }

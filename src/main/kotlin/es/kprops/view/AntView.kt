@@ -4,7 +4,7 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -161,9 +161,23 @@ private fun rowFour() {
     }
 }
 
+@Composable
+fun resultDataRow(theText: String, onNameChange: (String) -> Unit) {
+
+    TextField(
+        modifier = Modifier.width(500.dp),
+        value = theText,
+        onValueChange = onNameChange,
+        label = { Text("Action Result") },
+        placeholder = { Text("") }
+    )
+}
+
 @Preview
 @Composable
 fun createAntView() {
+
+    var resulttext by remember { mutableStateOf("default") }
 
     MaterialTheme (colors= darkColors(background = Color.Black)){
         Column {
@@ -187,6 +201,12 @@ fun createAntView() {
 
             Row(Modifier.background(color = Color.White)) {
                 rowFour()
+            }
+
+            Spacer(Modifier.height(50.dp))
+
+            Row(Modifier.background(color = Color.White)) {
+                resultDataRow(resulttext, onNameChange = { resulttext = it })
             }
         }
     }

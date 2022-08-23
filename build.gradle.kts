@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.1"
+version = "1.3"
 
 repositories {
     google()
