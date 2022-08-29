@@ -8,8 +8,8 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import es.kprops.view.CommandsView
 import es.kprops.view.creatDefaultView
-import es.kprops.view.createAntView
 
 
 const val actionAnt: String = "ANT"
@@ -24,10 +24,11 @@ const val actionProp: String = "prop"
 private fun app(action: String) {
 
     if(actionAnt == action) {
-        createAntView()
+        val v = CommandsView()
+        v.createAntView()
     }
     else {
-        creatDefaultView(action)
+      creatDefaultView(action)
     }
 
 }
@@ -38,8 +39,8 @@ fun main() = application {
     var action by remember { mutableStateOf("ANT") }
 
     Window(onCloseRequest = ::exitApplication,
-           title = "VF Alfred toolbox  v0.1",
-           state = rememberWindowState(width = 800.dp, height = 600.dp)
+        title = "VF Alfred toolbox  v0.1",
+        state = rememberWindowState(width = 800.dp, height = 600.dp)
     ) {
         MenuBar {
             Menu("Scopes", mnemonic = 'F') {

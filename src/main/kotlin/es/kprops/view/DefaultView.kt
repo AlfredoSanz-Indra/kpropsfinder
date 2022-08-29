@@ -45,14 +45,5 @@ fun creatDefaultView(action: String) {
                 }
             }
         }
-
-        Column(Modifier.absolutePadding (300.dp)) {
-            Row {
-                Text("Texto columna 2")
-            }
-            Row {
-                Text("second line")
-            }
-        }
     }
 }

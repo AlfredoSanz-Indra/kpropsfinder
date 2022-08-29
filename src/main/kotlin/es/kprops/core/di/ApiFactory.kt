@@ -1,6 +1,7 @@
 package es.kprops.core.di
 
-import es.kprops.data.commands.ant.repository.*
+import es.kprops.data.commands.ant.api.CommandApi
+import es.kprops.data.commands.ant.repository.RunCommandApiImpl
 
 /**
  * @author Alfredo Sanz
@@ -10,7 +11,7 @@ object  ApiFactory {
 
     private lateinit var runCommandApi: RunCommandApiImpl
 
-    fun getRunCommandApi(): RunCommandApiImpl {
+    fun getRunCommandApi(): CommandApi {
         if (!this::runCommandApi.isInitialized) {
             this.runCommandApi = RunCommandApiImpl()
         }

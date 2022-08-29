@@ -1,7 +1,8 @@
 package es.kprops.data.commands.ant.api
 
 /**
- *
+ * @author Alfredo Sanz
+ * @time 2022
  */
 enum class Commands {
     OPEN_KENOBI_CMD,
