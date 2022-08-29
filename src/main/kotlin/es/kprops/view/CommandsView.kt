@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -22,13 +23,12 @@ class CommandsView {
     @Composable
     fun createAntView() {
 
-         var resulttext by remember { mutableStateOf("Init State") }
-
+        var resulttext by rememberSaveable { mutableStateOf("Init State") }
 
         MaterialTheme(colors = darkColors(background = Color.Black)) {
             Column {
                 Row(Modifier.background(color = Color.White)) {
-                    rowOne()
+                    rowOne(resulttext = resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
@@ -40,13 +40,13 @@ class CommandsView {
                 Spacer(Modifier.height(20.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    rowThree()
+                    rowThree(resulttext = resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    rowFour()
+                    rowFour(resulttext = resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(50.dp))
@@ -59,9 +59,9 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowOne() {
-
+    private fun rowOne(resulttext: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+        var t: String = resulttext
 
         val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF7BB661),
@@ -73,7 +73,10 @@ class CommandsView {
         OutlinedButton( modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
+                t += "\nStarting Git Pull All"
+                onNameChange ( t )
                 antUseCase.gitPullAll()
+                onNameChange ( t + "\nGit Pull All execuiting" )
             }
         )
         {
@@ -85,7 +88,9 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
+                t += "\nStarting Git Log"
                 antUseCase.gitLog()
+                onNameChange ( t + "\nGit Log running" )
             })
         {
             Text("Git Log")
@@ -94,8 +99,8 @@ class CommandsView {
 
     @Composable
     private fun rowTwo(resulttext: String, onNameChange: (String) -> Unit) {
-
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+        var t: String = resulttext
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF387780),
@@ -107,11 +112,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                val t = "\nOpening kenobi Cmd"
+                t += "\nOpening kenobi Cmd"
                 onNameChange ( t )
                 antUseCase.openKenobiCmd()
-                val x: String = t + "\nKenobi cmd opened yet"
-                onNameChange ( x )
+                onNameChange ( t + "\nKenobi cmd opened yet" )
             })
         {
             Text("Open Kenobi cmd")
@@ -123,7 +127,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nLaunching kenobi Server"
+                onNameChange ( t )
                 antUseCase.launchKenobi()
+                onNameChange ( t + "\nKenobi server is starting")
             })
         {
             Text("Launch Server")
@@ -134,7 +141,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nLaunching kenobi Tests"
+                onNameChange ( t )
                 antUseCase.launchKenobiTest()
+                onNameChange ( t + "\nKenobi tests script is running")
             })
         {
             Text("Launch Tests")
@@ -142,8 +152,9 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowThree() {
+    private fun rowThree(resulttext: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+        var t: String = resulttext
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF9381ff),
@@ -155,7 +166,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nStarting script copy Env PPRD1"
+                onNameChange ( t )
                 antUseCase.copyEnvPPRD1()
+                onNameChange ( t + "\nCoping Files Env PPRD1")
             })
         {
             Text("Copy PPRD1")
@@ -167,7 +181,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nStarting script copy Env SIT2"
+                onNameChange ( t )
                 antUseCase.copyEnvSit2()
+                onNameChange ( t + "\nCoping Files Env SIT2")
             })
         {
             Text("Copy Sit2")
@@ -175,8 +192,9 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowFour() {
+    private fun rowFour(resulttext: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+        var t: String = resulttext
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0XFFe83151),
@@ -188,7 +206,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nStarting Install Script"
+                onNameChange ( t )
                 antUseCase.launchKenobiInstall()
+                onNameChange ( t + "\nInstall Script Running")
             })
         {
             Text("Make Install")
@@ -199,7 +220,10 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
+                t += "\nStarting Prod compilation script"
+                onNameChange ( t )
                 antUseCase.buildProKenobi()
+                onNameChange ( t + "\nProd compilation script running")
             })
         {
             Text("Build Prod")
@@ -211,12 +235,26 @@ class CommandsView {
 
         Column {
             Text(
-                text = resulttext,
-                modifier = Modifier.width(500.dp),
-                style = MaterialTheme.typography.body1,
-                color = Color.Magenta,
-                maxLines = 5
+                text = formatLogText(resulttext),
+                modifier = Modifier.width(500.dp).padding(PaddingValues(start = 25.dp)),
+                style = MaterialTheme.typography.body2,
+                color = Color.DarkGray,
+                maxLines = 6
            )
         }
+    }
+
+    private fun formatLogText(input: String): String {
+        var result = input;
+        val tList: List<String> = input.split("\n")
+        if(tList.size > 4) {
+            val newList: List<String> = tList.subList(tList.size - 5, tList.size)
+            result = ""
+            newList.forEach {
+                result += "\n" + it
+            }
+        }
+
+        return result
     }
 }
