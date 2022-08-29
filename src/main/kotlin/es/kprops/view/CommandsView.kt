@@ -52,7 +52,7 @@ class CommandsView {
                 Spacer(Modifier.height(50.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    resultDataRow(resulttext = resulttext, onNameChange = { resulttext = it })
+                    resultDataRow(resulttext = resulttext)
                 }
             }
         }
@@ -231,7 +231,7 @@ class CommandsView {
     }
 
     @Composable
-    private fun resultDataRow(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun resultDataRow(resulttext: String) {
 
         Column {
             Text(
@@ -245,7 +245,7 @@ class CommandsView {
     }
 
     private fun formatLogText(input: String): String {
-        var result = input;
+        var result = input
         val tList: List<String> = input.split("\n")
         if(tList.size > 4) {
             val newList: List<String> = tList.subList(tList.size - 5, tList.size)
