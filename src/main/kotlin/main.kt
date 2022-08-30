@@ -9,10 +9,12 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
 import es.kprops.view.CommandsView
+import es.kprops.view.SystemCommandView
 import es.kprops.view.creatDefaultView
 
 
 const val actionAnt: String = "ANT"
+const val actionSystem: String = "System"
 const val actionProp: String = "prop"
 
 /**
@@ -23,14 +25,19 @@ const val actionProp: String = "prop"
 @Composable
 private fun app(action: String) {
 
-    if(actionAnt == action) {
-        val v = CommandsView()
-        v.createAntView()
+    when(action) {
+        actionAnt -> {
+            val v = CommandsView()
+            v.createAntView()
+        }
+        actionSystem -> {
+            val v = SystemCommandView()
+            v.createView()
+        }
+        actionProp -> {
+            creatDefaultView(action)
+        }
     }
-    else {
-      creatDefaultView(action)
-    }
-
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -39,12 +46,13 @@ fun main() = application {
     var action by remember { mutableStateOf("ANT") }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v0.1",
+        title = "VF Alfred toolbox  v0.4",
         state = rememberWindowState(width = 800.dp, height = 600.dp)
     ) {
         MenuBar {
             Menu("Scopes", mnemonic = 'F') {
                 Item("ANT commands", onClick = { action = actionAnt }, shortcut = KeyShortcut(Key.C, ctrl = true))
+                Item("System commands", onClick = { action = actionSystem }, shortcut = KeyShortcut(Key.C, ctrl = true))
                 Item("Properties", onClick = { action = actionProp }, shortcut = KeyShortcut(Key.V, ctrl = true))
             }
         }

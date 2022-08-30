@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import es.kprops.core.di.UseCaseFactory
+import es.kprops.core.formatLogText
 import es.kprops.domain.api.antcases.AntUseCase
 
 /**
@@ -76,7 +77,7 @@ class CommandsView {
                 t += "\nStarting Git Pull All"
                 onNameChange ( t )
                 antUseCase.gitPullAll()
-                onNameChange ( t + "\nGit Pull All execuiting" )
+                onNameChange ("$t\nGit Pull All execuiting")
             }
         )
         {
@@ -90,7 +91,7 @@ class CommandsView {
             onClick = {
                 t += "\nStarting Git Log"
                 antUseCase.gitLog()
-                onNameChange ( t + "\nGit Log running" )
+                onNameChange ("$t\nGit Log running")
             })
         {
             Text("Git Log")
@@ -115,7 +116,7 @@ class CommandsView {
                 t += "\nOpening kenobi Cmd"
                 onNameChange ( t )
                 antUseCase.openKenobiCmd()
-                onNameChange ( t + "\nKenobi cmd opened yet" )
+                onNameChange ("$t\nKenobi cmd opened yet")
             })
         {
             Text("Open Kenobi cmd")
@@ -130,7 +131,7 @@ class CommandsView {
                 t += "\nLaunching kenobi Server"
                 onNameChange ( t )
                 antUseCase.launchKenobi()
-                onNameChange ( t + "\nKenobi server is starting")
+                onNameChange ("$t\nKenobi server is starting")
             })
         {
             Text("Launch Server")
@@ -144,7 +145,7 @@ class CommandsView {
                 t += "\nLaunching kenobi Tests"
                 onNameChange ( t )
                 antUseCase.launchKenobiTest()
-                onNameChange ( t + "\nKenobi tests script is running")
+                onNameChange ("$t\nKenobi tests script is running")
             })
         {
             Text("Launch Tests")
@@ -169,7 +170,7 @@ class CommandsView {
                 t += "\nStarting script copy Env PPRD1"
                 onNameChange ( t )
                 antUseCase.copyEnvPPRD1()
-                onNameChange ( t + "\nCoping Files Env PPRD1")
+                onNameChange ("$t\nCoping Files Env PPRD1")
             })
         {
             Text("Copy PPRD1")
@@ -184,7 +185,7 @@ class CommandsView {
                 t += "\nStarting script copy Env SIT2"
                 onNameChange ( t )
                 antUseCase.copyEnvSit2()
-                onNameChange ( t + "\nCoping Files Env SIT2")
+                onNameChange ("$t\nCoping Files Env SIT2")
             })
         {
             Text("Copy Sit2")
@@ -209,7 +210,7 @@ class CommandsView {
                 t += "\nStarting Install Script"
                 onNameChange ( t )
                 antUseCase.launchKenobiInstall()
-                onNameChange ( t + "\nInstall Script Running")
+                onNameChange ("$t\nInstall Script Running")
             })
         {
             Text("Make Install")
@@ -223,7 +224,7 @@ class CommandsView {
                 t += "\nStarting Prod compilation script"
                 onNameChange ( t )
                 antUseCase.buildProKenobi()
-                onNameChange ( t + "\nProd compilation script running")
+                onNameChange ("$t\nProd compilation script running")
             })
         {
             Text("Build Prod")
@@ -242,19 +243,5 @@ class CommandsView {
                 maxLines = 6
            )
         }
-    }
-
-    private fun formatLogText(input: String): String {
-        var result = input
-        val tList: List<String> = input.split("\n")
-        if(tList.size > 4) {
-            val newList: List<String> = tList.subList(tList.size - 5, tList.size)
-            result = ""
-            newList.forEach {
-                result += "\n" + it
-            }
-        }
-
-        return result
     }
 }

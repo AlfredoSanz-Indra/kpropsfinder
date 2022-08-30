@@ -13,5 +13,7 @@ enum class Commands {
     COPY_ENV_PPRD1,
     COPY_ENV_SIT2,
     GIT_PULL_ALL,
-    GIT_LOG
+    GIT_LOG,
+    SYSTEM_START_VPN,
+    SYSTEM_STOP_VPN
 }

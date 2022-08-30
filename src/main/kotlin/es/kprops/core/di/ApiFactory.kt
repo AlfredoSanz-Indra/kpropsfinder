@@ -9,7 +9,7 @@ import es.kprops.data.commands.ant.repository.RunCommandApiImpl
  */
 object  ApiFactory {
 
-    private lateinit var runCommandApi: RunCommandApiImpl
+    private lateinit var runCommandApi: CommandApi
 
     fun getRunCommandApi(): CommandApi {
         if (!this::runCommandApi.isInitialized) {
