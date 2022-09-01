@@ -31,6 +31,7 @@ class RunCommandApiImpl: CommandApi {
             Commands.GIT_LOG.name ->                result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotolog
             Commands.COPY_ENV_PPRD1.name ->         result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotopprd1
             Commands.COPY_ENV_SIT2.name ->          result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotosit2
+            Commands.COPY_ENV_HID.name ->           result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotohid
             Commands.GIT_PULL_ALL.name ->           result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotopull
             Commands.LAUNCH_TESTS.name ->           result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gototest
             Commands.MAKE_INSTALL.name ->           result = Constants.BAT_FILE_SOURCE + Constants.BAT_FILE_gotoinstall

@@ -190,6 +190,21 @@ class CommandsView {
         {
             Text("Copy Sit2")
         }
+
+        Spacer(Modifier.width(10.dp))
+
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = copyButtonsColor,
+            onClick = {
+                t += "\nStarting script copy Env HID"
+                onNameChange ( t )
+                antUseCase.copyEnvHid()
+                onNameChange ("$t\nCoping Files Env HID")
+            })
+        {
+            Text("Copy HID")
+        }
     }
 
     @Composable

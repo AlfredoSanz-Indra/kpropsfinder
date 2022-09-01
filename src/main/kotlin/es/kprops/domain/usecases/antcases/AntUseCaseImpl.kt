@@ -53,6 +53,11 @@ class AntUseCaseImpl : AntUseCase {
         println("\"AntUseCase - copyEnvSit2 result=${r.result}")
     }
 
+    override fun copyEnvHid(){
+        val r: AntResult = this.kenobiCommand.copyEnvHid(AntAction("Copy files to setup Hid env"))
+        println("\"AntUseCase - copyEnvHid result=${r.result}")
+    }
+
     override fun launchKenobiInstall(){
         val r: AntResult = this.kenobiCommand.launchKenobiInstall(AntAction("Launchs the install kenobi command"))
         println("\"AntUseCase - launchKenobiInstall result=${r.result}")

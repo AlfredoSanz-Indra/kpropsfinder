@@ -72,6 +72,17 @@ class KenobiCommandImpl : KenobiCommand {
         return KenobyResultEntity("OK").toKenobiResult()
     }
 
+    override fun copyEnvHid(action: AntAction): AntResult {
+        println("KenobiCommandImpl - copyEnvHid")
+        try {
+            this.runCommandApi.doAction(Commands.COPY_ENV_HID)
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
+    }
+
     override fun launchKenobiInstall(action: AntAction): AntResult {
         println("KenobiCommandImpl - launchKenobiInstall")
         try {

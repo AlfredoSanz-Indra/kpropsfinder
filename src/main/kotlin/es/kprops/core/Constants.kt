@@ -13,6 +13,7 @@ object Constants {
     const val BAT_FILE_gototest             = "gototest.bat"
     const val BAT_FILE_gotopprd1            = "gotopprd1.bat"
     const val BAT_FILE_gotosit2             = "gotosit2.bat"
+    const val BAT_FILE_gotohid              = "gotohid.bat"
     const val BAT_FILE_gotopull             = "gotopull.bat"
     const val BAT_FILE_gotolog              = "gotolog.bat"
 

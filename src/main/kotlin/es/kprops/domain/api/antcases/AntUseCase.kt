@@ -19,6 +19,8 @@ interface AntUseCase {
 
     fun copyEnvSit2()
 
+    fun copyEnvHid()
+
     fun launchKenobiInstall()
 
     fun buildProKenobi()
