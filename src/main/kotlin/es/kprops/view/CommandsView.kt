@@ -21,13 +21,9 @@ import kotlinx.coroutines.launch
  */
 class CommandsView {
 
-     var log: String = "Init State"
+     var log: String = "Init Commands State"
 
     private fun logea(t: String) {
-        this.log += t
-    }
-
-    private  fun logea2(t: String) {
         this.log += t
     }
 
@@ -137,7 +133,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Open Kenobi Cmd")
                     onNameChange("2.1.1")
-                    var r: AntResult = antUseCase.openKenobiCmd()
+                    val r: AntResult = antUseCase.openKenobiCmd()
                     if("OK".equals(r.result)) {
                         logea("\nKenobi cmd opened yet")
                     }
@@ -160,7 +156,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting kenobi Server")
                     onNameChange("2.21.1")
-                    var r: AntResult = antUseCase.launchKenobi()
+                    val r: AntResult = antUseCase.launchKenobi()
                     if("OK".equals(r.result)) {
                         logea("\nnKenobi server is starting")
                     }
@@ -182,7 +178,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nLaunching kenobi Tests")
                     onNameChange("2.3.1")
-                    var r: AntResult = antUseCase.launchKenobiTest()
+                    val r: AntResult = antUseCase.launchKenobiTest()
                     if("OK".equals(r.result)) {
                         logea("\nKenobi tests running")
                     }
@@ -216,7 +212,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Copy PPRD1 script")
                     onNameChange("3.1.1")
-                    var r: AntResult = antUseCase.copyEnvPPRD1()
+                    val r: AntResult = antUseCase.copyEnvPPRD1()
                     if ("OK".equals(r.result)) {
                         logea("\nCopying PPRD1 files")
                     } else {
@@ -238,7 +234,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Copy SIT2 script")
                     onNameChange("3.2.1")
-                    var r: AntResult = antUseCase.copyEnvSit2()
+                    val r: AntResult = antUseCase.copyEnvSit2()
                     if ("OK".equals(r.result)) {
                         logea("\nCopying SIT2 files")
                     } else {
@@ -260,7 +256,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Copy HID script")
                     onNameChange("3.3.1")
-                    var r: AntResult = antUseCase.copyEnvSit2()
+                    val r: AntResult = antUseCase.copyEnvSit2()
                     if ("OK".equals(r.result)) {
                         logea("\nCopying HID files")
                     } else {
@@ -293,7 +289,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Install Script")
                     onNameChange("4.1.1")
-                    var r: AntResult = antUseCase.launchKenobiInstall()
+                    val r: AntResult = antUseCase.launchKenobiInstall()
                     if ("OK".equals(r.result)) {
                         logea("\nMaking Install")
                     } else {
@@ -314,7 +310,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Prod:build")
                     onNameChange("4.2.1")
-                    var r: AntResult = antUseCase.buildProKenobi()
+                    val r: AntResult = antUseCase.buildProKenobi()
                     if ("OK".equals(r.result)) {
                         logea("\nMaking Prod:build")
                     } else {

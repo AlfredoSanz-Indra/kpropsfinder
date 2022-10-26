@@ -18,7 +18,7 @@ class SystemCommandImpl : SystemCommand {
     override fun startVpn() : SystemResult {
         println("SystemCommandImpl - startVpn")
         try {
-           // this.runCommandApi.doAction(Commands.SYSTEM_START_VPN)
+            this.runCommandApi.doAction(Commands.SYSTEM_START_VPN)
         }
         catch(e: Exception) {
             return SystemResultEntity("KO").toSystemResult()
@@ -29,7 +29,7 @@ class SystemCommandImpl : SystemCommand {
     override fun stopVpn(): SystemResult {
         println("SystemCommandImpl - stopVpn")
         try {
-           // this.runCommandApi.doAction(Commands.SYSTEM_STOP_VPN)
+            this.runCommandApi.doAction(Commands.SYSTEM_STOP_VPN)
         }
         catch(e: Exception) {
             return SystemResultEntity("KO").toSystemResult()

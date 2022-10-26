@@ -4,23 +4,28 @@ import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import es.kprops.core.di.UseCaseFactory
 import es.kprops.core.formatLogText
 import es.kprops.domain.api.systemcases.SystemUseCase
+import es.kprops.domain.model.system.SystemResult
+import kotlinx.coroutines.launch
 
 /**
  * @author Alfredo Sanz
  * @time 2022
  */
 class SystemCommandView {
+
+    var log: String = "Init System State"
+
+    private fun logea(t: String) {
+        this.log += t
+    }
 
     @Preview
     @Composable
@@ -31,22 +36,23 @@ class SystemCommandView {
         MaterialTheme(colors = darkColors(background = Color.Black)) {
             Column {
                 Row(Modifier.background(color = Color.White)) {
-                    rowOne(resulttext = resulttext, onNameChange = { resulttext = it })
+                    rowOne(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(50.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    resultDataRow(resulttext = resulttext)
+                    resultDataRow(log)
                 }
             }
         }
     }
 
     @Composable
-    private fun rowOne(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun rowOne(t: String, onNameChange: (String) -> Unit) {
         val systemUseCase: SystemUseCase =  UseCaseFactory.getSystemUseCase()
-        var t: String = resulttext
+
+        val coroutineScope = rememberCoroutineScope()
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0XFF119090),
@@ -58,10 +64,18 @@ class SystemCommandView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting Starting script to connect VPN"
-                onNameChange ( t )
-                systemUseCase.startVpn()
-                onNameChange ("$t\nConnection to VPN working on")
+                coroutineScope.launch {
+                    logea("\nStarting Script to connect VPN")
+                    onNameChange("1.1.1")
+                    val r: SystemResult = systemUseCase.startVpn()
+                    if("OK".equals(r.result)) {
+                        logea("\nScript to connect VPN running")
+                    }
+                    else {
+                        logea("\nnVPN starter script failed to start, KO!!")
+                    }
+                    onNameChange("1.1.2")
+                }
             })
         {
             Text("Connect VPN")
@@ -72,10 +86,18 @@ class SystemCommandView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting script to disconnect VPN"
-                onNameChange ( t )
-                systemUseCase.stopVpn()
-                onNameChange ("$t\nVPN disconnecting")
+                coroutineScope.launch {
+                    logea("\nStarting Script to Disconnect VPN")
+                    onNameChange("1.2.1")
+                    val r: SystemResult = systemUseCase.stopVpn()
+                    if("OK".equals(r.result)) {
+                        logea("\nScript to Disconnect VPN running")
+                    }
+                    else {
+                        logea("\nnVPN stopper script failed to start, KO!!")
+                    }
+                    onNameChange("1.2.2")
+                }
             })
         {
             Text("Disconnect VPN")
@@ -87,11 +109,11 @@ class SystemCommandView {
 
         Column {
             Text(
-                text = formatLogText(resulttext),
-                modifier = Modifier.width(500.dp).padding(PaddingValues(start = 25.dp)),
+                text = formatLogText(log),
+                modifier = Modifier.width(500.dp).height(200.dp).padding(PaddingValues(start = 25.dp)),
                 style = MaterialTheme.typography.body2,
                 color = Color.DarkGray,
-                maxLines = 6
+                maxLines = 10
             )
         }
     }

@@ -1,12 +1,14 @@
 package es.kprops.domain.api.systemcases
 
+import es.kprops.domain.model.system.SystemResult
+
 /**
  * @author Alfredo Sanz
  * @time 2022
  */
 interface SystemUseCase {
 
-    fun startVpn()
+    suspend fun startVpn(): SystemResult
 
-    fun stopVpn()
+    suspend fun stopVpn(): SystemResult
 }
