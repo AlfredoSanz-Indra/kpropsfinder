@@ -20,7 +20,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test"))
     implementation(compose.desktop.currentOs) //windows_x64)
-    implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.26")
+    implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.32")
     implementation("org.jetbrains.compose.ui:ui-util-desktop:1.2.0-beta01")
 }
 
