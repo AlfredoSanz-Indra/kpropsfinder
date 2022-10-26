@@ -6,6 +6,7 @@ import es.kprops.domain.model.ant.AntAction
 import es.kprops.domain.model.ant.AntResult
 import es.kprops.domain.repository.ant.GitCommand
 import es.kprops.domain.repository.ant.KenobiCommand
+import kotlinx.coroutines.delay
 
 /**
  * @author Alfredo Sanz
@@ -16,55 +17,69 @@ class AntUseCaseImpl : AntUseCase {
     private val gitCommand: GitCommand = RepoFactory.getGitCommandRepo()
     private val kenobiCommand: KenobiCommand = RepoFactory.getKenobiCommandRepo()
 
-    override fun gitPullAll() {
+    suspend override fun gitPullAll() {
         val r: AntResult =  this.gitCommand.pullAll(AntAction("pull All Kenobi"))
         println("\"AntUseCase - gitPullAllKenobi  result=${r.result}")
     }
 
-
-    override fun openKenobiCmd() {
+    suspend override fun openKenobiCmd(): AntResult {
         val r: AntResult = this.kenobiCommand.openKenobiCmd(AntAction("Open console Kenoby path"))
         println("AntUseCase - openKenobiCmd result=${r.result}")
 
+        return r;
     }
 
-    override fun gitLog() {
+   suspend override fun gitLog() {
         val r: AntResult = this.gitCommand.gitLog(AntAction("List the last commits log"))
         println("AntUseCase - gitLog result=${r.result}")
     }
 
-    override fun launchKenobi(){
+    suspend override fun launchKenobi(): AntResult {
         val r: AntResult = this.kenobiCommand.launchKenobiServer(AntAction("Launch kenobi server in a new console"))
         println("\"AntUseCase - launchKenobi result=${r.result}")
+
+        return r
     }
 
-    override fun launchKenobiTest(){
+   suspend override fun launchKenobiTest(): AntResult {
         val r: AntResult = this.kenobiCommand.launchKenobiTest(AntAction("Launch kenobi tests in a new console"))
         println("\"AntUseCase - launchKenobiTest result=${r.result}")
+
+       return r
     }
 
-    override fun copyEnvPPRD1(){
+    suspend override fun copyEnvPPRD1(): AntResult {
         val r: AntResult = this.kenobiCommand.copyEnvPPRD1(AntAction("Copy files to setup pprd1 env"))
         println("\"AntUseCase - copyEnvPPRD1 result=${r.result}")
+
+        return r
     }
 
-    override fun copyEnvSit2(){
+    suspend override fun copyEnvSit2(): AntResult{
         val r: AntResult = this.kenobiCommand.copyEnvSit2(AntAction("Copy files to setup sit2 env"))
         println("\"AntUseCase - copyEnvSit2 result=${r.result}")
+
+        return r
     }
 
-    override fun copyEnvHid(){
+    suspend override fun copyEnvHid(): AntResult {
         val r: AntResult = this.kenobiCommand.copyEnvHid(AntAction("Copy files to setup Hid env"))
         println("\"AntUseCase - copyEnvHid result=${r.result}")
+
+        return r
     }
 
-    override fun launchKenobiInstall(){
+    suspend override fun launchKenobiInstall(): AntResult {
         val r: AntResult = this.kenobiCommand.launchKenobiInstall(AntAction("Launchs the install kenobi command"))
         println("\"AntUseCase - launchKenobiInstall result=${r.result}")
+
+        return r
     }
 
-    override fun buildProKenobi(){
+    suspend override fun buildProKenobi(): AntResult {
         val r: AntResult = this.kenobiCommand.buildProKenobi(AntAction("Make a prod compilation"))
         println("\"AntUseCase - buildProKenobi result=${r.result}")
+
+        return r
     }
 }

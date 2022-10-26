@@ -97,7 +97,7 @@ class KenobiCommandImpl : KenobiCommand {
     override fun buildProKenobi(action: AntAction): AntResult {
         println("KenobiCommandImpl - buildProKenobi")
         try {
-            this.runCommandApi.doAction(Commands.BUILD_PROD)
+           this.runCommandApi.doAction(Commands.BUILD_PROD)
         }
         catch(e: Exception) {
             return KenobyResultEntity("KO").toKenobiResult()

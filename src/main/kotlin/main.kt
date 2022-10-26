@@ -11,6 +11,7 @@ import androidx.compose.ui.window.rememberWindowState
 import es.kprops.view.CommandsView
 import es.kprops.view.SystemCommandView
 import es.kprops.view.creatDefaultView
+import kotlinx.coroutines.runBlocking
 
 
 const val actionAnt: String = "ANT"

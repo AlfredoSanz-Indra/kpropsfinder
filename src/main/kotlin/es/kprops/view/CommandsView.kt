@@ -12,6 +12,8 @@ import androidx.compose.ui.unit.dp
 import es.kprops.core.di.UseCaseFactory
 import es.kprops.core.formatLogText
 import es.kprops.domain.api.antcases.AntUseCase
+import es.kprops.domain.model.ant.AntResult
+import kotlinx.coroutines.launch
 
 /**
  * @author Alfredo Sanz
@@ -19,6 +21,15 @@ import es.kprops.domain.api.antcases.AntUseCase
  */
 class CommandsView {
 
+     var log: String = "Init State"
+
+    private fun logea(t: String) {
+        this.log += t
+    }
+
+    private  fun logea2(t: String) {
+        this.log += t
+    }
 
     @Preview
     @Composable
@@ -29,40 +40,42 @@ class CommandsView {
         MaterialTheme(colors = darkColors(background = Color.Black)) {
             Column {
                 Row(Modifier.background(color = Color.White)) {
-                    rowOne(resulttext = resulttext, onNameChange = { resulttext = it })
+                    rowOne(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    rowTwo(resulttext = resulttext, onNameChange = { resulttext = it })
+                    rowTwo(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    rowThree(resulttext = resulttext, onNameChange = { resulttext = it })
+                    rowThree(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    rowFour(resulttext = resulttext, onNameChange = { resulttext = it })
+                    rowFour(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(50.dp))
 
                 Row(Modifier.background(color = Color.White)) {
-                    resultDataRow(resulttext = resulttext)
+                    resultDataRow(log)
                 }
             }
         }
     }
 
+
     @Composable
-    private fun rowOne(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun rowOne(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
-        var t: String = resulttext
+
+        val coroutineScope = rememberCoroutineScope()
 
         val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF7BB661),
@@ -74,10 +87,13 @@ class CommandsView {
         OutlinedButton( modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
-                t += "\nStarting Git Pull All"
-                onNameChange ( t )
-                antUseCase.gitPullAll()
-                onNameChange ("$t\nGit Pull All execuiting")
+                coroutineScope.launch {
+                    logea("\nStarting Git Pull-All")
+                    onNameChange("1.1.1")
+                    antUseCase.gitPullAll()
+                    logea("\nGit Pull-All working on")
+                    onNameChange("1.1.2")
+                }
             }
         )
         {
@@ -89,9 +105,13 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
-                t += "\nStarting Git Log"
-                antUseCase.gitLog()
-                onNameChange ("$t\nGit Log running")
+                coroutineScope.launch {
+                    logea("\nStarting Git Log")
+                    onNameChange("1.2.1")
+                    antUseCase.gitLog()
+                    logea("\nGit Log working on")
+                    onNameChange("1.2.2")
+                }
             })
         {
             Text("Git Log")
@@ -99,9 +119,10 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowTwo(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun rowTwo(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
-        var t: String = resulttext
+
+        val coroutineScope = rememberCoroutineScope()
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF387780),
@@ -113,10 +134,18 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nOpening kenobi Cmd"
-                onNameChange ( t )
-                antUseCase.openKenobiCmd()
-                onNameChange ("$t\nKenobi cmd opened yet")
+                coroutineScope.launch {
+                    logea("\nStarting Open Kenobi Cmd")
+                    onNameChange("2.1.1")
+                    var r: AntResult = antUseCase.openKenobiCmd()
+                    if("OK".equals(r.result)) {
+                        logea("\nKenobi cmd opened yet")
+                    }
+                    else {
+                        logea("\nKenobi cmd opened Action KO!!")
+                    }
+                    onNameChange("2.1.2")
+                }
             })
         {
             Text("Open Kenobi cmd")
@@ -128,10 +157,18 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nLaunching kenobi Server"
-                onNameChange ( t )
-                antUseCase.launchKenobi()
-                onNameChange ("$t\nKenobi server is starting")
+                coroutineScope.launch {
+                    logea("\nStarting kenobi Server")
+                    onNameChange("2.21.1")
+                    var r: AntResult = antUseCase.launchKenobi()
+                    if("OK".equals(r.result)) {
+                        logea("\nnKenobi server is starting")
+                    }
+                    else {
+                        logea("\nnKenobi server failed to start, KO!!")
+                    }
+                    onNameChange("2.2.2")
+                }
             })
         {
             Text("Launch Server")
@@ -142,10 +179,18 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nLaunching kenobi Tests"
-                onNameChange ( t )
-                antUseCase.launchKenobiTest()
-                onNameChange ("$t\nKenobi tests script is running")
+                coroutineScope.launch {
+                    logea("\nLaunching kenobi Tests")
+                    onNameChange("2.3.1")
+                    var r: AntResult = antUseCase.launchKenobiTest()
+                    if("OK".equals(r.result)) {
+                        logea("\nKenobi tests running")
+                    }
+                    else {
+                        logea("\nnTests script failed to start, KO!!")
+                    }
+                    onNameChange("2.3.2")
+                }
             })
         {
             Text("Launch Tests")
@@ -153,9 +198,10 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowThree(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun rowThree(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
-        var t: String = resulttext
+
+        val coroutineScope = rememberCoroutineScope()
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0xFF9381ff),
@@ -167,10 +213,17 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting script copy Env PPRD1"
-                onNameChange ( t )
-                antUseCase.copyEnvPPRD1()
-                onNameChange ("$t\nCoping Files Env PPRD1")
+                coroutineScope.launch {
+                    logea("\nStarting Copy PPRD1 script")
+                    onNameChange("3.1.1")
+                    var r: AntResult = antUseCase.copyEnvPPRD1()
+                    if ("OK".equals(r.result)) {
+                        logea("\nCopying PPRD1 files")
+                    } else {
+                        logea("\nnCopy PPRD1 files script failed to start, KO!!")
+                    }
+                    onNameChange("3.1.2")
+                }
             })
         {
             Text("Copy PPRD1")
@@ -182,10 +235,17 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting script copy Env SIT2"
-                onNameChange ( t )
-                antUseCase.copyEnvSit2()
-                onNameChange ("$t\nCoping Files Env SIT2")
+                coroutineScope.launch {
+                    logea("\nStarting Copy SIT2 script")
+                    onNameChange("3.2.1")
+                    var r: AntResult = antUseCase.copyEnvSit2()
+                    if ("OK".equals(r.result)) {
+                        logea("\nCopying SIT2 files")
+                    } else {
+                        logea("\nnCopy SIT2 files script failed to start, KO!!")
+                    }
+                    onNameChange("3.2.2")
+                }
             })
         {
             Text("Copy Sit2")
@@ -197,10 +257,17 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting script copy Env HID"
-                onNameChange ( t )
-                antUseCase.copyEnvHid()
-                onNameChange ("$t\nCoping Files Env HID")
+                coroutineScope.launch {
+                    logea("\nStarting Copy HID script")
+                    onNameChange("3.3.1")
+                    var r: AntResult = antUseCase.copyEnvSit2()
+                    if ("OK".equals(r.result)) {
+                        logea("\nCopying HID files")
+                    } else {
+                        logea("\nnCopy HID files script failed to start, KO!!")
+                    }
+                    onNameChange("3.3.2")
+                }
             })
         {
             Text("Copy HID")
@@ -208,9 +275,10 @@ class CommandsView {
     }
 
     @Composable
-    private fun rowFour(resulttext: String, onNameChange: (String) -> Unit) {
+    private fun rowFour(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
-        var t: String = resulttext
+
+        val coroutineScope = rememberCoroutineScope()
 
         val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
             backgroundColor = Color(0XFFe83151),
@@ -222,10 +290,17 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting Install Script"
-                onNameChange ( t )
-                antUseCase.launchKenobiInstall()
-                onNameChange ("$t\nInstall Script Running")
+                coroutineScope.launch {
+                    logea("\nStarting Install Script")
+                    onNameChange("4.1.1")
+                    var r: AntResult = antUseCase.launchKenobiInstall()
+                    if ("OK".equals(r.result)) {
+                        logea("\nMaking Install")
+                    } else {
+                        logea("\nnInstall script failed to start, KO!!")
+                    }
+                    onNameChange("4.1.2")
+                }
             })
         {
             Text("Make Install")
@@ -236,10 +311,17 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                t += "\nStarting Prod compilation script"
-                onNameChange ( t )
-                antUseCase.buildProKenobi()
-                onNameChange ("$t\nProd compilation script running")
+                coroutineScope.launch {
+                    logea("\nStarting Prod:build")
+                    onNameChange("4.2.1")
+                    var r: AntResult = antUseCase.buildProKenobi()
+                    if ("OK".equals(r.result)) {
+                        logea("\nMaking Prod:build")
+                    } else {
+                        logea("\nnProd:build script failed to start, KO!!")
+                    }
+                    onNameChange("4.2.2")
+                }
             })
         {
             Text("Build Prod")
@@ -247,15 +329,15 @@ class CommandsView {
     }
 
     @Composable
-    private fun resultDataRow(resulttext: String) {
+    private fun resultDataRow(log: String) {
 
         Column {
             Text(
-                text = formatLogText(resulttext),
-                modifier = Modifier.width(500.dp).padding(PaddingValues(start = 25.dp)),
+                text = formatLogText(log),
+                modifier = Modifier.width(500.dp).height(200.dp).padding(PaddingValues(start = 25.dp)),
                 style = MaterialTheme.typography.body2,
                 color = Color.DarkGray,
-                maxLines = 6
+                maxLines = 10
            )
         }
     }

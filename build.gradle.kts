@@ -4,12 +4,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 plugins {
-    kotlin("jvm") version "1.7.0"
-    id("org.jetbrains.compose") version "1.2.0-alpha01-dev753"
+    kotlin("jvm") version "1.7.10"
+    id("org.jetbrains.compose") version "1.2.0-beta01"
 }
 
 group = "me.asanzma"
-version = "1.4.1"
+version = "1.5.1"
 
 repositories {
     google()
@@ -21,7 +21,7 @@ dependencies {
     testImplementation(kotlin("test"))
     implementation(compose.desktop.currentOs) //windows_x64)
     implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.26")
-    implementation("org.jetbrains.compose.ui:ui-util-desktop:1.2.0-alpha01-dev753")
+    implementation("org.jetbrains.compose.ui:ui-util-desktop:1.2.0-beta01")
 }
 
 tasks.test {
@@ -48,7 +48,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.0.4"
+            packageVersion = "1.0.5"
         }
     }
 }

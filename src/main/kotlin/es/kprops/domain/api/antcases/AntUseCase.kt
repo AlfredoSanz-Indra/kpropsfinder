@@ -1,27 +1,29 @@
 package es.kprops.domain.api.antcases
 
+import es.kprops.domain.model.ant.AntResult
+
 /**
  * @author Alfredo Sanz
  * @time 2022
  */
 interface AntUseCase {
-    fun gitPullAll()
+    suspend fun gitPullAll()
 
-    fun gitLog()
+    suspend fun gitLog()
 
-    fun openKenobiCmd()
+    suspend fun openKenobiCmd(): AntResult
 
-    fun launchKenobi()
+    suspend fun launchKenobi(): AntResult
 
-    fun launchKenobiTest()
+    suspend fun launchKenobiTest(): AntResult
 
-    fun copyEnvPPRD1()
+    suspend fun copyEnvPPRD1(): AntResult
 
-    fun copyEnvSit2()
+    suspend fun copyEnvSit2(): AntResult
 
-    fun copyEnvHid()
+    suspend fun copyEnvHid(): AntResult
 
-    fun launchKenobiInstall()
+    suspend fun launchKenobiInstall(): AntResult
 
-    fun buildProKenobi()
+    suspend fun buildProKenobi(): AntResult
 }
