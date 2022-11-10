@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -34,14 +35,26 @@ class SystemCommandView {
         var resulttext by rememberSaveable { mutableStateOf("Init State") }
 
         MaterialTheme(colors = darkColors(background = Color.Black)) {
-            Column {
-                Row(Modifier.background(color = Color.White)) {
+            Column(Modifier.background(color = Color.White)
+                           .width(800.dp),
+                            Arrangement.Top,
+                            Alignment.CenterHorizontally
+            ) {
+                Row(Modifier.background(color = Color.White)
+                            .width(800.dp),
+                            Arrangement.Center,
+                            Alignment.Top
+                ) {
                     rowOne(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(50.dp))
 
-                Row(Modifier.background(color = Color.White)) {
+                Row(Modifier.background(color = Color.White)
+                            .width(800.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.Top
+                ) {
                     resultDataRow(log)
                 }
             }
