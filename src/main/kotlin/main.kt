@@ -8,14 +8,9 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import es.kprops.view.CommandsView
-import es.kprops.view.LauncherView
-import es.kprops.view.SystemCommandView
-import es.kprops.view.creatDefaultView
+import es.kprops.view.*
 
 
-const val actionAnt: String = "ANT"
-const val actionSystem: String = "System"
 const val actionProp: String = "prop"
 const val actionLauncher: String = "LAUNCHER"
 
@@ -29,7 +24,8 @@ private fun app(action: String) {
 
     when(action) {
         actionProp -> {
-            creatDefaultView(action)
+            val v = PropertiesView()
+            v.createView()
         }
         actionLauncher -> {
             val v = LauncherView()
