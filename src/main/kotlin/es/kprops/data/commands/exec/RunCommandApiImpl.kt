@@ -1,8 +1,8 @@
-package es.kprops.data.commands.ant.repository
+package es.kprops.data.commands.exec
 
 import es.kprops.core.Constants
-import es.kprops.data.commands.ant.api.CommandApi
-import es.kprops.data.commands.ant.api.Commands
+import es.kprops.data.commands.api.CommandApi
+import es.kprops.data.commands.api.Commands
 
 /**
  * @author Alfredo Sanz
