@@ -19,7 +19,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import es.kprops.core.di.UseCaseFactory
 import es.kprops.core.formatLogText
+import es.kprops.domain.api.propcases.PropUseCase
 import kotlinx.coroutines.launch
 
 /**
@@ -214,7 +216,7 @@ class PropertiesView {
     @Composable
     private fun rowThree(t: String, onNameChange: (String) -> Unit) {
 
-        //val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+        val propUseCase: PropUseCase =  UseCaseFactory.getPropUseCase()
 
         val coroutineScope = rememberCoroutineScope()
 
@@ -236,7 +238,7 @@ class PropertiesView {
                                 logea("\n" + selectProp + ",")
                                 logea(selectEnv)
                                 onNameChange("3.1.1")
-                                //antUseCase.gitPullAll()
+                                propUseCase.findProperties(selectEnv, selectProp)
                                 logea("\nGit Query working on")
                             }
                             else {

@@ -1,6 +1,6 @@
 package es.kprops.data.repository.ant
 
-import es.kprops.core.di.ApiFactory
+import es.kprops.core.di.DataFactory
 import es.kprops.data.commands.api.CommandApi
 import es.kprops.data.commands.api.Commands
 import es.kprops.data.commands.entity.GitResultEntity
@@ -15,7 +15,7 @@ import es.kprops.domain.repository.ant.GitCommand
  */
 class GitCommandImpl: GitCommand {
 
-    private val runCommandApi: CommandApi = ApiFactory.getRunCommandApi()
+    private val runCommandApi: CommandApi = DataFactory.getRunCommandApi()
 
     override fun pullAll(action: AntAction): AntResult {
         println("GitCommandImpl - pullAll")
