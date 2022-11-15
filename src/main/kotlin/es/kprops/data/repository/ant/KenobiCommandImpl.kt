@@ -1,10 +1,10 @@
 package es.kprops.data.repository.ant
 
 import es.kprops.core.di.ApiFactory
-import es.kprops.data.commands.ant.api.CommandApi
-import es.kprops.data.commands.ant.api.Commands
-import es.kprops.data.commands.ant.entity.KenobyResultEntity
-import es.kprops.data.commands.ant.entity.toKenobiResult
+import es.kprops.data.commands.api.CommandApi
+import es.kprops.data.commands.api.Commands
+import es.kprops.data.commands.entity.KenobyResultEntity
+import es.kprops.data.commands.entity.toKenobiResult
 import es.kprops.domain.model.ant.AntAction
 import es.kprops.domain.model.ant.AntResult
 import es.kprops.domain.repository.ant.KenobiCommand

@@ -1,4 +1,4 @@
-package es.kprops.data.commands.ant.entity
+package es.kprops.data.commands.entity
 
 import es.kprops.domain.model.system.SystemResult
 

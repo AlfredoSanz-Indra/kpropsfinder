@@ -1,7 +1,7 @@
 package es.kprops.core.di
 
-import es.kprops.data.commands.ant.api.CommandApi
-import es.kprops.data.commands.ant.repository.RunCommandApiImpl
+import es.kprops.data.commands.api.CommandApi
+import es.kprops.data.commands.exec.RunCommandApiImpl
 
 /**
  * @author Alfredo Sanz

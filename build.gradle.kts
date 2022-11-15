@@ -22,6 +22,8 @@ dependencies {
     implementation(compose.desktop.currentOs) //windows_x64)
     implementation("org.jetbrains.skiko:skiko-awt-runtime-windows-x64:0.7.39")
     implementation("org.jetbrains.compose.ui:ui-util-desktop:1.3.0-alpha01-dev849")
+    implementation ("org.jdbi:jdbi3-kotlin:3.32.0")
+    implementation ("org.jdbi:jdbi3-kotlin-sqlobject:3.32.0")
 }
 
 tasks.test {
