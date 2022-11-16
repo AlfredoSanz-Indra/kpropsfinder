@@ -8,7 +8,9 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import es.kprops.core.resources.TheResources
 import es.kprops.view.*
+import java.util.*
 
 
 const val actionProp: String = "prop"
@@ -51,4 +53,8 @@ fun main() = application {
         }
         app(action)
     }
+
+    println("reading props")
+    val prop: Properties = TheResources.getConstantsProp()
+    println(prop)
 }
