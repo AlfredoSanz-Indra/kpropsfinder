@@ -44,7 +44,7 @@ fun main() = application {
         state = rememberWindowState(width = 800.dp, height = 650.dp)
     ) {
         MenuBar {
-            Menu("What next", mnemonic = 'F') {
+            Menu("What's next", mnemonic = 'F') {
                 Item("Launcher", onClick = { action = actionLauncher }, shortcut = KeyShortcut(Key.C, ctrl = true))
                 Item("Properties", onClick = { action = actionProp }, shortcut = KeyShortcut(Key.V, ctrl = true))
             }

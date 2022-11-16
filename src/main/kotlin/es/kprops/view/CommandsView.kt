@@ -3,7 +3,6 @@ package es.kprops.view
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.selection.selectable
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -94,28 +93,27 @@ class CommandsView {
 
     @Composable
     private fun rowOne(t: String, onNameChange: (String) -> Unit) {
-        val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
+        val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
         val coroutineScope = rememberCoroutineScope()
 
-        val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF7BB661),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0xFF666699))
+        val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(backgroundColor = Color(0xFF7BB661),
+                                                                   contentColor = Color(0xFFF5F5F5),
+                                                                   disabledContentColor = Color(0xFF666699))
 
         Spacer(Modifier.width(20.dp))
 
         OutlinedButton( modifier = Modifier.width(200.dp),
-            colors = gitButtonsColor,
-            onClick = {
-                coroutineScope.launch {
-                    logea("\nStarting Git Pull-All")
-                    onNameChange("1.1.1")
-                    antUseCase.gitPullAll()
-                    logea("\nGit Pull-All working on")
-                    onNameChange("1.1.2")
-                }
-            }
+                        colors = gitButtonsColor,
+                        onClick = {
+                                   coroutineScope.launch {
+                                       logea("\nStarting Git Pull-All")
+                                       onNameChange("1.1.1")
+                                       antUseCase.gitPullAll()
+                                       logea("\nGit Pull-All working on")
+                                       onNameChange("1.1.2")
+                                   }
+                                  }
         )
         {
             Text("Git Pull All")
@@ -126,14 +124,15 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
-                coroutineScope.launch {
-                    logea("\nStarting Git Log")
-                    onNameChange("1.2.1")
-                    antUseCase.gitLog()
-                    logea("\nGit Log working on")
-                    onNameChange("1.2.2")
-                }
-            })
+                        coroutineScope.launch {
+                            logea("\nStarting Git Log")
+                            onNameChange("1.2.1")
+                            antUseCase.gitLog()
+                            logea("\nGit Log working on")
+                            onNameChange("1.2.2")
+                       }
+                     }
+        )
         {
             Text("Git Log")
         }
@@ -145,52 +144,52 @@ class CommandsView {
 
         val coroutineScope = rememberCoroutineScope()
 
-        val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF387780),
-            contentColor = Color(0xFFF5F5F5),
-            disabledContentColor = Color(0XFFe83151))
+        val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(backgroundColor = Color(0xFF387780),
+                                                                    contentColor = Color(0xFFF5F5F5),
+                                                                    disabledContentColor = Color(0XFFe83151))
 
         Spacer(Modifier.width(20.dp))
 
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                coroutineScope.launch {
-                    logea("\nStarting Open Kenobi Cmd")
-                    onNameChange("2.1.1")
-                    val r: AntResult = antUseCase.openKenobiCmd()
-                    if("OK".equals(r.result)) {
-                        logea("\nKenobi cmd opened yet")
-                    }
-                    else {
-                        logea("\nKenobi cmd opened Action KO!!")
-                    }
-                    onNameChange("2.1.2")
-                }
-            })
+                        coroutineScope.launch {
+                            logea("\nStarting Open Kenobi Cmd")
+                            onNameChange("2.1.1")
+                            val r: AntResult = antUseCase.openKenobiCmd()
+                            if("OK".equals(r.result)) {
+                                logea("\nKenobi cmd opened yet")
+                            }
+                            else {
+                                logea("\nKenobi cmd opened Action KO!!")
+                            }
+                            onNameChange("2.1.2")
+                        }
+                      }
+        )
         {
             Text("Open Kenobi cmd")
         }
 
         Spacer(Modifier.width(10.dp))
 
-
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                coroutineScope.launch {
-                    logea("\nStarting kenobi Server")
-                    onNameChange("2.21.1")
-                    val r: AntResult = antUseCase.launchKenobi()
-                    if("OK".equals(r.result)) {
-                        logea("\nnKenobi server is starting")
-                    }
-                    else {
-                        logea("\nnKenobi server failed to start, KO!!")
-                    }
-                    onNameChange("2.2.2")
-                }
-            })
+                        coroutineScope.launch {
+                            logea("\nStarting kenobi Server")
+                            onNameChange("2.21.1")
+                            val r: AntResult = antUseCase.launchKenobi()
+                            if("OK".equals(r.result)) {
+                                logea("\nnKenobi server is starting")
+                            }
+                            else {
+                                logea("\nnKenobi server failed to start, KO!!")
+                            }
+                            onNameChange("2.2.2")
+                        }
+                      }
+        )
         {
             Text("Launch Server")
         }
@@ -200,19 +199,20 @@ class CommandsView {
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColor,
             onClick = {
-                coroutineScope.launch {
-                    logea("\nLaunching kenobi Tests")
-                    onNameChange("2.3.1")
-                    val r: AntResult = antUseCase.launchKenobiTest()
-                    if("OK".equals(r.result)) {
-                        logea("\nKenobi tests running")
-                    }
-                    else {
-                        logea("\nnTests script failed to start, KO!!")
-                    }
-                    onNameChange("2.3.2")
-                }
-            })
+                        coroutineScope.launch {
+                            logea("\nLaunching kenobi Tests")
+                            onNameChange("2.3.1")
+                            val r: AntResult = antUseCase.launchKenobiTest()
+                            if("OK".equals(r.result)) {
+                                logea("\nKenobi tests running")
+                            }
+                            else {
+                                logea("\nnTests script failed to start, KO!!")
+                            }
+                            onNameChange("2.3.2")
+                        }
+                      }
+        )
         {
             Text("Launch Tests")
         }

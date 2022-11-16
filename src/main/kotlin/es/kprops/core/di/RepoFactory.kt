@@ -2,9 +2,11 @@ package es.kprops.core.di
 
 import es.kprops.data.repository.ant.GitCommandImpl
 import es.kprops.data.repository.ant.KenobiCommandImpl
+import es.kprops.data.repository.prop.PropRepoImpl
 import es.kprops.data.repository.system.SystemCommandImpl
 import es.kprops.domain.repository.ant.GitCommand
 import es.kprops.domain.repository.ant.KenobiCommand
+import es.kprops.domain.repository.prop.PropRepo
 import es.kprops.domain.repository.system.SystemCommand
 
 /**
@@ -15,7 +17,8 @@ object  RepoFactory {
 
     private lateinit var gitCommand: GitCommand
     private lateinit var kenobiCommand: KenobiCommand
-    private lateinit var SystemCommand: SystemCommand
+    private lateinit var systemCommand: SystemCommand
+    private lateinit var propCommand: PropRepo
 
     fun getGitCommandRepo(): GitCommand {
         if (!this::gitCommand.isInitialized) {
@@ -32,9 +35,16 @@ object  RepoFactory {
     }
 
     fun getSystemCommandRepo(): SystemCommand {
-        if (!this::SystemCommand.isInitialized) {
-            this.SystemCommand = SystemCommandImpl()
+        if (!this::systemCommand.isInitialized) {
+            this.systemCommand = SystemCommandImpl()
         }
-        return this.SystemCommand
+        return this.systemCommand
+    }
+
+    fun getPropCommandRepo(): PropRepo {
+        if (!this::propCommand.isInitialized) {
+            this.propCommand = PropRepoImpl()
+        }
+        return this.propCommand
     }
 }

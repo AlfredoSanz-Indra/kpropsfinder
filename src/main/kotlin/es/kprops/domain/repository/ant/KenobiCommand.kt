@@ -3,6 +3,10 @@ package es.kprops.domain.repository.ant
 import es.kprops.domain.model.ant.AntAction
 import es.kprops.domain.model.ant.AntResult
 
+/**
+ * @author Alfredo Sanz
+ * @time 2022
+ */
 interface KenobiCommand {
 
     fun openKenobiCmd(action: AntAction): AntResult
