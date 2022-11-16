@@ -1,5 +1,6 @@
 package es.kprops.core.resources
 
+import es.kprops.core.model.Datasources
 import java.util.*
 
 /**
@@ -9,6 +10,7 @@ import java.util.*
 object TheResources {
 
 private lateinit var constantsProp: Properties
+private lateinit var datasources: Datasources
 
 
     fun getConstantsProp(): Properties {
@@ -16,5 +18,12 @@ private lateinit var constantsProp: Properties
             this.constantsProp = readResources("constants.properties")
         }
         return this.constantsProp
+    }
+
+    fun getDatasources(): Datasources {
+        if (!this::datasources.isInitialized) {
+            this.datasources = readJsonResources("datasources.json")
+        }
+        return this.datasources
     }
 }
