@@ -42,7 +42,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.5.4",
+        title = "VF Alfred toolbox  v1.5.5",
         state = rememberWindowState(width = 800.dp, height = 650.dp)
     ) {
         MenuBar {
@@ -54,7 +54,7 @@ fun main() = application {
         app(action)
     }
 
-    println("reading props")
+    println("initializing -> reading props")
     val prop: Properties = TheResources.getConstantsProp()
     println(prop)
 }

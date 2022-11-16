@@ -1,4 +1,3 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
@@ -9,7 +8,7 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.5.4"
+version = "1.5.5"
 
 repositories {
     google()
@@ -50,7 +49,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.5.4"
+            packageVersion = "1.5.5"
         }
     }
 }

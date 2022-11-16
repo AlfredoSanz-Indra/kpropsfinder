@@ -38,6 +38,7 @@ class RunCommandApiImpl: CommandApi {
             Commands.MAKE_INSTALL.name ->           result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotoinstall") as String
             Commands.SYSTEM_START_VPN.name ->       result = props.get("BAT_FILE_NTOL_SCRIPTS_SOURCE") as String + props.get("BAT_FILE_startVpn") as String
             Commands.SYSTEM_STOP_VPN.name ->        result = props.get("BAT_FILE_DESKTOP_SOURCE") as String + props.get("BAT_FILE_stopVpn") as String
+            Commands.SYSTEM_OPEN_BRIDGES.name ->    result = props.get("BAT_FILE_NTOL_SCRIPTS_APACHE_SOURCE") as String + props.get("BAT_FILE_openBridges") as String
         }
 
         return result

@@ -20,4 +20,8 @@ class SystemUseCaseImpl : SystemUseCase {
     suspend override fun stopVpn(): SystemResult {
        return this.systemCommand.stopVpn()
     }
+
+    suspend override fun openBridges(): SystemResult {
+        return this.systemCommand.openBridges()
+    }
 }

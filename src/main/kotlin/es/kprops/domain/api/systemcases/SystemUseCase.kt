@@ -11,4 +11,6 @@ interface SystemUseCase {
     suspend fun startVpn(): SystemResult
 
     suspend fun stopVpn(): SystemResult
+
+    suspend fun openBridges(): SystemResult
 }

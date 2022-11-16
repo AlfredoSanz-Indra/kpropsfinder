@@ -11,4 +11,6 @@ interface SystemCommand {
     fun startVpn(): SystemResult
 
     fun stopVpn(): SystemResult
+
+    fun openBridges(): SystemResult
 }
