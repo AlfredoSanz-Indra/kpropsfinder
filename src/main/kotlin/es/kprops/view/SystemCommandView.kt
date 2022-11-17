@@ -115,6 +115,28 @@ class SystemCommandView {
         {
             Text("Disconnect VPN")
         }
+
+        Spacer(Modifier.width(10.dp))
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = copyButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Script to open Bridges")
+                    onNameChange("1.3.1")
+                    val r: SystemResult = systemUseCase.openBridges()
+                    if("OK".equals(r.result)) {
+                        logea("\nScript to open Bridges running")
+                    }
+                    else {
+                        logea("\nnScript to open Bridges failed to start, KO!!")
+                    }
+                    onNameChange("1.3.2")
+                }
+            })
+        {
+            Text("Open Bridges")
+        }
     }
 
     @Composable

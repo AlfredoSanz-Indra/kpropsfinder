@@ -16,5 +16,6 @@ enum class Commands {
     GIT_PULL_ALL,
     GIT_LOG,
     SYSTEM_START_VPN,
-    SYSTEM_STOP_VPN
+    SYSTEM_STOP_VPN,
+    SYSTEM_OPEN_BRIDGES
 }

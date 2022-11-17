@@ -36,4 +36,15 @@ class SystemCommandImpl : SystemCommand {
         }
         return SystemResultEntity("OK").toSystemResult()
     }
+
+    override fun openBridges(): SystemResult {
+        println("SystemCommandImpl - openBridges")
+        try {
+            this.runCommandApi.doAction(Commands.SYSTEM_OPEN_BRIDGES)
+        }
+        catch(e: Exception) {
+            return SystemResultEntity("KO").toSystemResult()
+        }
+        return SystemResultEntity("OK").toSystemResult()
+    }
 }

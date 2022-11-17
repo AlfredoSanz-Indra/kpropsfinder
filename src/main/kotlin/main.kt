@@ -8,7 +8,9 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import es.kprops.core.resources.TheResources
 import es.kprops.view.*
+import java.util.*
 
 
 const val actionProp: String = "prop"
@@ -40,7 +42,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.5.4",
+        title = "VF Alfred toolbox  v1.5.5",
         state = rememberWindowState(width = 800.dp, height = 650.dp)
     ) {
         MenuBar {
@@ -51,4 +53,8 @@ fun main() = application {
         }
         app(action)
     }
+
+    println("initializing -> reading props")
+    val prop: Properties = TheResources.getConstantsProp()
+    println(prop)
 }
