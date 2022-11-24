@@ -24,4 +24,6 @@ interface KenobiCommand {
     fun launchKenobiInstall(action: AntAction): AntResult
 
     fun buildProKenobi(action: AntAction): AntResult
+
+    fun backBuildAll(action: AntAction): AntResult
 }

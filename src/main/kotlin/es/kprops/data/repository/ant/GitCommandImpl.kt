@@ -28,6 +28,17 @@ class GitCommandImpl: GitCommand {
         return GitResultEntity("OK").toGitResult()
     }
 
+    override fun  pullKenobi(action: AntAction): AntResult {
+        println("GitCommandImpl - pullKenobi")
+        try {
+            this.runCommandApi.doAction(Commands.GIT_PULL_KENOBI)
+        }
+        catch(e: Exception) {
+            return GitResultEntity("KO").toGitResult()
+        }
+        return GitResultEntity("OK").toGitResult()
+    }
+
     override fun gitLog(action: AntAction): AntResult {
         println("GitCommandImpl - Log")
         try {

@@ -78,6 +78,16 @@ class CommandsView {
                     rowFour(resulttext, onNameChange = { resulttext = it })
                 }
 
+                Spacer(Modifier.height(20.dp))
+
+                Row(
+                    Modifier.background(color = Color.White).width(800.dp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    rowFive(resulttext, onNameChange = { resulttext = it })
+                }
+
                 Spacer(Modifier.height(50.dp))
 
                 Row(Modifier.background(color = Color.White).width(800.dp),
@@ -90,7 +100,9 @@ class CommandsView {
         }
     }
 
-
+    /**
+     * Row for GIT
+     */
     @Composable
     private fun rowOne(t: String, onNameChange: (String) -> Unit) {
 
@@ -119,6 +131,24 @@ class CommandsView {
             Text("Git Pull All")
         }
 
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(200.dp),
+            colors = gitButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Git Pull-Kenobi")
+                    onNameChange("1.2.1")
+                    antUseCase.gitPullKenobi()
+                    logea("\nGit Pull-Kenobi working on")
+                    onNameChange("1.2.2")
+                }
+            }
+        )
+        {
+            Text("Git Pull Kenobi")
+        }
+
         Spacer(Modifier.width(10.dp))
 
         OutlinedButton(modifier = Modifier.width(200.dp),
@@ -126,10 +156,10 @@ class CommandsView {
             onClick = {
                         coroutineScope.launch {
                             logea("\nStarting Git Log")
-                            onNameChange("1.2.1")
+                            onNameChange("1.3.1")
                             antUseCase.gitLog()
                             logea("\nGit Log working on")
-                            onNameChange("1.2.2")
+                            onNameChange("1.3.2")
                        }
                      }
         )
@@ -138,8 +168,45 @@ class CommandsView {
         }
     }
 
+    /**
+     * Row for Back
+     */
     @Composable
     private fun rowTwo(t: String, onNameChange: (String) -> Unit) {
+        val antUseCase: AntUseCase = UseCaseFactory.getAntUseCase()
+
+        val coroutineScope = rememberCoroutineScope()
+
+        val bakButtonsColor = ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0xFF387780),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151)
+        )
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(200.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build All")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuildAll()
+                    logea("\nBack is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Back Build All")
+        }
+    }
+
+    /**
+     * Row For Kenobi 1
+     */
+    @Composable
+    private fun rowThree(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
         val coroutineScope = rememberCoroutineScope()
@@ -218,8 +285,11 @@ class CommandsView {
         }
     }
 
+    /**
+     * Row for Kenobi 2
+     */
     @Composable
-    private fun rowThree(t: String, onNameChange: (String) -> Unit) {
+    private fun rowFour(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
         val coroutineScope = rememberCoroutineScope()
@@ -295,8 +365,11 @@ class CommandsView {
         }
     }
 
+    /**
+     * row for Kenobi 3
+     */
     @Composable
-    private fun rowFour(t: String, onNameChange: (String) -> Unit) {
+    private fun rowFive(t: String, onNameChange: (String) -> Unit) {
         val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
 
         val coroutineScope = rememberCoroutineScope()
@@ -349,6 +422,9 @@ class CommandsView {
         }
     }
 
+    /**
+     * Row for log
+     */
     @Composable
     private fun resultDataRow(log: String) {
 
@@ -358,7 +434,7 @@ class CommandsView {
                 modifier = Modifier.width(500.dp).height(200.dp).padding(PaddingValues(start = 25.dp)),
                 style = MaterialTheme.typography.body2,
                 color = Color.DarkGray,
-                maxLines = 10
+                maxLines = 8
            )
         }
     }

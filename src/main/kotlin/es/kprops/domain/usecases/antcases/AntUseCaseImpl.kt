@@ -18,8 +18,13 @@ class AntUseCaseImpl : AntUseCase {
     private val kenobiCommand: KenobiCommand = RepoFactory.getKenobiCommandRepo()
 
     suspend override fun gitPullAll() {
-        val r: AntResult =  this.gitCommand.pullAll(AntAction("pull All Kenobi"))
-        println("\"AntUseCase - gitPullAllKenobi  result=${r.result}")
+        val r: AntResult =  this.gitCommand.pullAll(AntAction("pull All"))
+        println("\"AntUseCase - gitPullAll  result=${r.result}")
+    }
+
+    suspend override  fun gitPullKenobi() {
+        val r: AntResult =  this.gitCommand.pullKenobi(AntAction("pull Kenobi"))
+        println("\"AntUseCase - gitPullKenobi  result=${r.result}")
     }
 
     suspend override fun openKenobiCmd(): AntResult {
@@ -79,6 +84,13 @@ class AntUseCaseImpl : AntUseCase {
     suspend override fun buildProKenobi(): AntResult {
         val r: AntResult = this.kenobiCommand.buildProKenobi(AntAction("Make a prod compilation"))
         println("\"AntUseCase - buildProKenobi result=${r.result}")
+
+        return r
+    }
+
+    suspend override fun backBuildAll(): AntResult {
+        val r: AntResult = this.kenobiCommand.backBuildAll(AntAction("Make a back compilation"))
+        println("\"AntUseCase - backBuildAll result=${r.result}")
 
         return r
     }

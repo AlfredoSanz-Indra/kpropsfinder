@@ -44,7 +44,7 @@ fun main() = application {
 
     Window(onCloseRequest = ::exitApplication,
         title = "VF Alfred toolbox  v1.5.6",
-        state = rememberWindowState(width = 800.dp, height = 690.dp)
+        state = rememberWindowState(width = 800.dp, height = 710.dp)
     ) {
         MenuBar {
             Menu("What's next", mnemonic = 'F') {

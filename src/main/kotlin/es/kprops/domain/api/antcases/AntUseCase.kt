@@ -9,6 +9,8 @@ import es.kprops.domain.model.ant.AntResult
 interface AntUseCase {
     suspend fun gitPullAll()
 
+    suspend fun gitPullKenobi()
+
     suspend fun gitLog()
 
     suspend fun openKenobiCmd(): AntResult
@@ -26,4 +28,6 @@ interface AntUseCase {
     suspend fun launchKenobiInstall(): AntResult
 
     suspend fun buildProKenobi(): AntResult
+
+    suspend fun backBuildAll(): AntResult
 }

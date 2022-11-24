@@ -104,4 +104,15 @@ class KenobiCommandImpl : KenobiCommand {
         }
         return KenobyResultEntity("OK").toKenobiResult()
     }
+
+    override fun backBuildAll(action: AntAction): AntResult {
+        println("KenobiCommandImpl - backBuildAll")
+        try {
+            this.runCommandApi.doAction(Commands.BUILD_ALL_BACK)
+        }
+        catch(e: Exception) {
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
+    }
 }
