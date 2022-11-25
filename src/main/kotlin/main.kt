@@ -8,6 +8,7 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import es.kprops.core.model.Datasources
 import es.kprops.core.resources.TheResources
 import es.kprops.view.*
 import java.util.*
@@ -42,8 +43,8 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.5.5",
-        state = rememberWindowState(width = 800.dp, height = 650.dp)
+        title = "VF Alfred toolbox  v1.5.6",
+        state = rememberWindowState(width = 800.dp, height = 710.dp)
     ) {
         MenuBar {
             Menu("What's next", mnemonic = 'F') {
@@ -57,4 +58,8 @@ fun main() = application {
     println("initializing -> reading props")
     val prop: Properties = TheResources.getConstantsProp()
     println(prop)
+
+    println("initializing -> reading json")
+    val ds: Datasources = TheResources.getDatasources()
+    println(ds)
 }

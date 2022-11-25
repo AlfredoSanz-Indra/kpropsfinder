@@ -129,7 +129,7 @@ class SystemCommandView {
                         logea("\nScript to open Bridges running")
                     }
                     else {
-                        logea("\nnScript to open Bridges failed to start, KO!!")
+                        logea("\nScript to open Bridges failed to start, KO!!")
                     }
                     onNameChange("1.3.2")
                 }
