@@ -19,6 +19,8 @@ interface KenobiCommand {
 
     fun copyEnvSit2(action: AntAction): AntResult
 
+    fun copyEnvLocal(action: AntAction): AntResult
+
     fun copyEnvHid(action: AntAction): AntResult
 
     fun launchKenobiInstall(action: AntAction): AntResult

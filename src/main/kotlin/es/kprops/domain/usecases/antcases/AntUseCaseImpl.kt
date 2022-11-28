@@ -67,6 +67,13 @@ class AntUseCaseImpl : AntUseCase {
         return r
     }
 
+    suspend override  fun copyEnvLocal(): AntResult {
+        val r: AntResult = this.kenobiCommand.copyEnvLocal(AntAction("Copy files to setup local env"))
+        println("\"AntUseCase - copyEnvLocal result=${r.result}")
+
+        return r
+    }
+
     suspend override fun copyEnvHid(): AntResult {
         val r: AntResult = this.kenobiCommand.copyEnvHid(AntAction("Copy files to setup Hid env"))
         println("\"AntUseCase - copyEnvHid result=${r.result}")

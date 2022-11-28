@@ -301,7 +301,7 @@ class CommandsView {
 
         Spacer(Modifier.width(20.dp))
 
-        OutlinedButton(modifier = Modifier.width(200.dp),
+        OutlinedButton(modifier = Modifier.width(150.dp),
             colors = copyButtonsColor,
             onClick = {
                 coroutineScope.launch {
@@ -317,13 +317,13 @@ class CommandsView {
                 }
             })
         {
-            Text("Copy PPRD1")
+            Text("Cp PPRD1")
         }
 
         Spacer(Modifier.width(10.dp))
 
 
-        OutlinedButton(modifier = Modifier.width(200.dp),
+        OutlinedButton(modifier = Modifier.width(150.dp),
             colors = copyButtonsColor,
             onClick = {
                 coroutineScope.launch {
@@ -339,13 +339,13 @@ class CommandsView {
                 }
             })
         {
-            Text("Copy Sit2")
+            Text("Cp Sit2")
         }
 
         Spacer(Modifier.width(10.dp))
 
 
-        OutlinedButton(modifier = Modifier.width(200.dp),
+        OutlinedButton(modifier = Modifier.width(150.dp),
             colors = copyButtonsColor,
             onClick = {
                 coroutineScope.launch {
@@ -361,7 +361,29 @@ class CommandsView {
                 }
             })
         {
-            Text("Copy HID")
+            Text("Cp HID")
+        }
+
+        Spacer(Modifier.width(10.dp))
+
+
+        OutlinedButton(modifier = Modifier.width(150.dp),
+            colors = copyButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Copy LOCAL script")
+                    onNameChange("3.4.1")
+                    val r: AntResult = antUseCase.copyEnvLocal()
+                    if ("OK".equals(r.result)) {
+                        logea("\nCopying LOCAL files")
+                    } else {
+                        logea("\nnCopy LOCAL files script failed to start, KO!!")
+                    }
+                    onNameChange("3.4.2")
+                }
+            })
+        {
+            Text("Cp Local")
         }
     }
 
