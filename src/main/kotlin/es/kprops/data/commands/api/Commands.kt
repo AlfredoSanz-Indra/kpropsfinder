@@ -12,6 +12,7 @@ enum class Commands {
     BUILD_PROD,
     COPY_ENV_PPRD1,
     COPY_ENV_SIT2,
+    COPY_ENV_LOCAL,
     COPY_ENV_HID,
     GIT_PULL_ALL,
     GIT_PULL_KENOBI,

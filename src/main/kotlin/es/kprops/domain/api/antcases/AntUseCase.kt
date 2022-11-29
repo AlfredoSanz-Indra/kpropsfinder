@@ -23,6 +23,8 @@ interface AntUseCase {
 
     suspend fun copyEnvSit2(): AntResult
 
+    suspend fun copyEnvLocal(): AntResult
+
     suspend fun copyEnvHid(): AntResult
 
     suspend fun launchKenobiInstall(): AntResult

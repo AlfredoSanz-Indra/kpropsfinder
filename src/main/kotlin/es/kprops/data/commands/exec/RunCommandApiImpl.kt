@@ -33,6 +33,7 @@ class RunCommandApiImpl: CommandApi {
             Commands.COPY_ENV_PPRD1.name ->         result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotopprd1") as String
             Commands.COPY_ENV_SIT2.name ->          result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotosit2") as String
             Commands.COPY_ENV_HID.name ->           result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotohid") as String
+            Commands.COPY_ENV_LOCAL.name ->         result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotolocal") as String
             Commands.GIT_PULL_ALL.name ->           result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotopull") as String
             Commands.LAUNCH_TESTS.name ->           result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gototest") as String
             Commands.MAKE_INSTALL.name ->           result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotoinstall") as String
