@@ -16,6 +16,4 @@ class PropUseCaseImpl : PropUseCase {
     override suspend fun findProperties(environment: String, propName: String): PropResult {
         return propCommand.findProperties(environment, propName)
     }
-
-
 }

@@ -2,15 +2,19 @@ package es.kprops.view
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.font.FontFamily
@@ -20,8 +24,11 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import es.kprops.core.di.UseCaseFactory
-import es.kprops.core.formatLogText
+import es.kprops.core.resources.TheResources
 import es.kprops.domain.api.propcases.PropUseCase
+import es.kprops.domain.model.prop.PropResult
+import es.kprops.domain.model.prop.Property
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 /**
@@ -52,7 +59,9 @@ class PropertiesView {
     fun createView() {
 
         var resultProp by rememberSaveable { mutableStateOf("Init") }
-        var resultBut by rememberSaveable { mutableStateOf("Init") }
+
+        val resultValues:  List<Property> = ArrayList()
+        var resultBut by rememberSaveable { mutableStateOf(resultValues) }
 
         MaterialTheme(colors = darkColors(background = Color.Black)) {
             Column(Modifier.background(color = Color.White)
@@ -101,7 +110,7 @@ class PropertiesView {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    rowThree(resultBut, onNameChange = { resultBut = it })
+                    rowThree(onValueChange = { resultBut = it })
                 }
 
                 //LOG
@@ -109,7 +118,7 @@ class PropertiesView {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.Top
                 ) {
-                    resultDataRow(log)
+                    resultDataRow(resultBut)
                 }
             }
         }
@@ -129,6 +138,9 @@ class PropertiesView {
         )
     }
 
+    /**
+     * Textfield
+     */
     @Composable
     private fun rowOne(onNameChange: (String) -> Unit) {
 
@@ -163,12 +175,17 @@ class PropertiesView {
         )
     }
 
+    /**
+     * RadioButtons
+     */
     @Composable
     private fun rowTwo() {
 
         Spacer(Modifier.width(20.dp).height(20.dp))
 
-        val radioOptions = listOf("PPRD1", "SIT1", "SIT2")
+        val radioOptions = TheResources.getConstantsProp().getProperty("ENVIRONMENT_NAME_LIST")
+                                .split(",")
+                                .map { it.trim() }
         val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
 
         setEnvironment(selectedOption) //Default value
@@ -213,8 +230,11 @@ class PropertiesView {
         }
     }
 
+    /**
+     * Button
+     */
     @Composable
-    private fun rowThree(t: String, onNameChange: (String) -> Unit) {
+    private fun rowThree(onValueChange: (List<Property>) -> Unit) {
 
         val propUseCase: PropUseCase =  UseCaseFactory.getPropUseCase()
 
@@ -226,27 +246,40 @@ class PropertiesView {
 
         Spacer(Modifier.width(20.dp))
 
+        val emptyList: List<Property> = ArrayList()
+
         OutlinedButton( modifier = Modifier.width(200.dp),
             colors = gitButtonsColor,
             onClick = {
-                        coroutineScope.launch {
-                            if((::selectProp.isInitialized && !selectProp.isEmpty())  &&
-                                (::selectEnv.isInitialized && !selectEnv.isEmpty())) {
+                        if((::selectProp.isInitialized && !selectProp.isEmpty())  &&
+                            (::selectEnv.isInitialized && !selectEnv.isEmpty())) {
 
-                                println("if if")
-                                logea("\nLaunching Query")
-                                logea("\n" + selectProp + ",")
-                                logea(selectEnv)
-                                onNameChange("3.1.1")
-                                propUseCase.findProperties(selectEnv, selectProp)
-                                logea("\nGit Query working on")
+                            var  r: PropResult
+                            coroutineScope.launch(Dispatchers.IO) {
+                                r = propUseCase.findProperties(selectEnv, selectProp)
+
+                                var resultTrace = "\nPropertiesView->findProperties - result . status: ${r.status}, elements: ${r.propList.size} "
+                                if(300 <= r.status) {
+                                    resultTrace += ", error: ${r.errorMessage}"
+                                    val errP = Property()
+                                    errP.id = 1
+                                    errP.key = "Error"
+                                    errP.value = resultTrace
+                                    val errPList: MutableList<Property> = ArrayList()
+                                    errPList.add(errP)
+                                    r = PropResult(errPList, r.status)
+                                }
+                                println(resultTrace)
+                                onValueChange(r.propList)
                             }
-                            else {
-                                println("else else")
-                                logea("\nNot all Fields are selected")
-                            }
-                            println("fin fin")
-                            onNameChange("3.1.2")
+                            logea("\nPerforming search . property: $selectProp, env: $selectEnv ")
+                            onValueChange(emptyList)
+                        }
+                        else {
+                            onValueChange(emptyList)
+                            logea("\nresult 406 . Not all Fields are selected")
+                            println("result 406 . Not all Fields are selected")
+                            onValueChange(emptyList)
                         }
                      }
         )
@@ -256,16 +289,96 @@ class PropertiesView {
     }
 
     @Composable
-    private fun resultDataRow(log: String) {
+    private fun resultDataRow(resultValues: List<Property>) {
 
-        Column {
-            Text(
-                text = formatLogText(log),
-                modifier = Modifier.width(500.dp).height(200.dp).padding(PaddingValues(start = 25.dp)),
-                style = MaterialTheme.typography.body2,
-                color = Color.DarkGray,
-                maxLines = 10
-            )
-        }
+        val nValues: String = resultValues.size.toString()
+
+        Box(modifier = Modifier.padding(20.dp)
+                               .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
+                               .fillMaxWidth()
+                               .height(350.dp)
+                               .padding(15.dp)
+        )  {
+            LazyColumn(modifier = Modifier.fillMaxHeight()
+                                          .padding(horizontal = 10.dp)) {
+
+                item {
+                    Row(
+                        Modifier.background(color = Color.White)
+                            .wrapContentHeight()
+                            .padding(vertical = 25.dp),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = "Properties Found ($nValues)",
+                            style = MaterialTheme.typography.h6
+                        )
+                    }
+                }
+                items(resultValues.size, itemContent = { item ->
+                    val elem = resultValues.get(item)
+
+                    Card(
+                        modifier = Modifier
+                            .padding(vertical = 5.dp)
+                            .fillMaxWidth()
+                            .wrapContentHeight(),
+                        shape = MaterialTheme.shapes.medium,
+                        elevation = 5.dp,
+                        backgroundColor = MaterialTheme.colors.secondary
+                    )
+                    {
+                        Column {
+                            Row {
+                                Column(
+                                    Modifier.padding(4.dp)
+                                            .width(550.dp),
+                                    horizontalAlignment = Alignment.Start
+                                ) {
+                                    Text(
+                                        text = elem.key,
+                                        style = MaterialTheme.typography.h6,
+                                        color = MaterialTheme.colors.onSecondary,
+                                    )
+                                }
+                                Column(
+                                    Modifier.padding(4.dp)
+                                            .fillMaxWidth(),
+                                    horizontalAlignment = Alignment.End
+                                ) {
+                                    Text(
+                                        text = elem.domain,
+                                        style = MaterialTheme.typography.caption,
+                                        color = MaterialTheme.colors.onPrimary
+                                    )
+                                }
+                            }//Row
+
+                            Row {
+                                Column(
+                                    Modifier.padding(8.dp)
+                                            .fillMaxWidth()
+                                ) {
+                                    Text(
+                                        text = elem.value,
+                                        style = MaterialTheme.typography.subtitle1,
+                                        color = MaterialTheme.colors.onSecondary,
+                                    )
+
+                                    Spacer(Modifier.height(8.dp))
+
+                                    Text(
+                                        text = elem.ds_descripcion_interna,
+                                        style = MaterialTheme.typography.caption,
+                                        color = MaterialTheme.colors.onSecondary,
+                                    )
+                                }
+                            }//Row
+                        }//Column
+                    }//card
+                })//items
+            }//lazyColumn
+        }//Box
     }
 }

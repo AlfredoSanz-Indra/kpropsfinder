@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.5.7"
+version = "1.6.0"
 
 repositories {
     google()
@@ -25,6 +25,9 @@ dependencies {
     implementation ("org.jdbi:jdbi3-kotlin:3.32.0")
     implementation ("org.jdbi:jdbi3-kotlin-sqlobject:3.32.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation("com.oracle.database.jdbc:ojdbc11:21.1.0.0")
+    implementation("org.slf4j:slf4j-log4j12:1.7.36")
+
 }
 
 tasks.test {
@@ -51,7 +54,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.5.7"
+            packageVersion = "1.6.0"
         }
     }
 }

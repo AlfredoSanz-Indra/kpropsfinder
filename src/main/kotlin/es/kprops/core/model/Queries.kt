@@ -2,12 +2,14 @@ package es.kprops.core.model
 
 import kotlinx.serialization.Serializable
 
+
 /**
  * @author Alfredo Sanz
  * @time 2022
  */
 @Serializable
-data class Datasources(
+data class Queries(
+    val name: String,
     @Serializable()
-    val environments: List<Environment>
+    val query: Query
 )

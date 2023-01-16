@@ -1,6 +1,7 @@
 package es.kprops.core.resources
 
 import es.kprops.core.model.Datasources
+import es.kprops.core.model.JQueries
 import java.util.*
 import kotlinx.serialization.json.*
 import java.io.InputStream
@@ -20,10 +21,18 @@ fun readResources(fileName: String): Properties {
 /**
  * Read a Json file from Resources Path
  */
-fun readJsonResources(fileName: String): Datasources {
+fun readJsonResources_Datasources(fileName: String): Datasources {
     val loader = Thread.currentThread().contextClassLoader
     val input: InputStream = loader.getResourceAsStream(fileName)
 
     val result = Json.decodeFromStream<Datasources>(input)
+    return result
+}
+
+fun readJsonResources_Queries(fileName: String): JQueries {
+    val loader = Thread.currentThread().contextClassLoader
+    val input: InputStream = loader.getResourceAsStream(fileName)
+
+    val result = Json.decodeFromStream<JQueries>(input)
     return result
 }

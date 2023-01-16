@@ -15,5 +15,6 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-/src/main/resources/constants.properties
 /src/main/resources/datasources.json
+/src/main/resources/queries.json
+/src/main/resources/constantss.properties
