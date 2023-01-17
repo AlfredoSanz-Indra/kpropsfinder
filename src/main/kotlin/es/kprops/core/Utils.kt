@@ -2,10 +2,14 @@ package es.kprops.core
 
 
  fun formatLogText(input: String): String {
+    return formatLogText(input, 10)
+}
+
+fun formatLogText(input: String, nLastFiles: Int): String {
     var result = input
     val tList: List<String> = input.split("\n")
-    if(tList.size > 9) {
-        val newList: List<String> = tList.subList(tList.size - 10, tList.size)
+    if(tList.size > nLastFiles) {
+        val newList: List<String> = tList.subList(tList.size - nLastFiles , tList.size)
         result = ""
         newList.forEach {
             result += "\n" + it

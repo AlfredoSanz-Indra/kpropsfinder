@@ -7,7 +7,9 @@ import kotlinx.serialization.Serializable
  * @time 2022
  */
 @Serializable
-data class Datasources(
-    @Serializable()
-    val environments: List<Environment>
+data class Query(
+    val dsname: String,
+    val q_select: List<String>,
+    val q_from: List<String>,
+    val q_where: List<String>
 )

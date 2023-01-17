@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * @time 2022
  */
 @Serializable
-data class Datasources(
+data class JQueries(
     @Serializable()
-    val environments: List<Environment>
+    val queries: List<Queries>
 )

@@ -1,5 +1,6 @@
 package es.kprops.data.datasource.api
 
+import es.kprops.core.model.Datasource
 import es.kprops.domain.model.prop.Property
 
 
@@ -9,5 +10,5 @@ import es.kprops.domain.model.prop.Property
  */
 interface PropDS {
 
-    fun findPropertiesByName(name: String): List<Property>
+    fun findPropertiesByName(ds: Datasource, name: String): List<Property>
 }
