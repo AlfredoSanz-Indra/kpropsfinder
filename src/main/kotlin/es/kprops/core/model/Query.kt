@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class Query(
-    val dsname: String,
+    val dsname: List<String>,
     val q_select: List<String>,
     val q_from: List<String>,
     val q_where: List<String>

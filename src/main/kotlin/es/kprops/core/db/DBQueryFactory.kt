@@ -21,10 +21,9 @@ object DBQueryFactory {
 
         val jqs: JQueries = TheResources.getQueries()
         val qsList: List<Queries> = jqs.queries.filter { it -> it.name.equals(queryName)  }
-
-        var qs: Queries? = qsList.find { it -> it.query.dsname == dsName }
+        var qs: Queries? = qsList.find { it -> dsName == it.query.dsname.findLast { it2 -> it2 == dsName } }
         if(null == qs) {
-            qs = qsList.find { it -> it.query.dsname == "DEFAULT" }
+            qs = qsList.find { it -> it.query.dsname.get(0) == "DEFAULT" }
         }
 
         if(null != qs) {
