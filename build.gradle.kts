@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.6.0"
+version = "1.6.1"
 
 repositories {
     google()
@@ -54,7 +54,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.6.0"
+            packageVersion = "1.6.1"
         }
     }
 }

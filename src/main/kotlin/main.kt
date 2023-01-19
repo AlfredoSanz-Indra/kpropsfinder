@@ -44,7 +44,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.6.0",
+        title = "VF Alfred toolbox  v1.6.1",
         state = rememberWindowState(width = 800.dp, height = 710.dp)
     ) {
         MenuBar {

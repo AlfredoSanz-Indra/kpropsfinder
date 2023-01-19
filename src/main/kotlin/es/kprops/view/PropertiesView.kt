@@ -293,92 +293,105 @@ class PropertiesView {
 
         val nValues: String = resultValues.size.toString()
 
-        Box(modifier = Modifier.padding(20.dp)
-                               .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
-                               .fillMaxWidth()
-                               .height(350.dp)
-                               .padding(15.dp)
-        )  {
-            LazyColumn(modifier = Modifier.fillMaxHeight()
-                                          .padding(horizontal = 10.dp)) {
+        Column(
+            Modifier.padding(4.dp)
+                    .fillMaxWidth()
+        ) {
+            Row (modifier = Modifier.padding(horizontal = 20.dp)) {
+                Text(
+                    text = "Properties Found ($nValues)",
+                    style = MaterialTheme.typography.body1,
+                    color = MaterialTheme.colors.onPrimary
+                )
+            }//Row
 
-                item {
-                    Row(
-                        Modifier.background(color = Color.White)
-                            .wrapContentHeight()
-                            .padding(vertical = 25.dp),
-                        horizontalArrangement = Arrangement.Start,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text(
-                            text = "Properties Found ($nValues)",
-                            style = MaterialTheme.typography.h6
-                        )
+            Spacer(Modifier.height(10.dp))
+
+            Box(
+                modifier = Modifier.padding(15.dp)
+                    .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
+                    .fillMaxWidth()
+                    .height(350.dp)
+                    .padding(15.dp)
+            ) {
+                LazyColumn(
+                    modifier = Modifier.fillMaxHeight()
+                                       .padding(horizontal = 10.dp)
+                ) {
+
+                    item {
+                        Row(
+                            Modifier.background(color = Color.White)
+                                    .wrapContentHeight()
+                                    .padding(vertical = 0.dp),
+                            horizontalArrangement = Arrangement.Start,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                        }
                     }
-                }
-                items(resultValues.size, itemContent = { item ->
-                    val elem = resultValues.get(item)
+                    items(resultValues.size, itemContent = { item ->
+                        val elem = resultValues.get(item)
 
-                    Card(
-                        modifier = Modifier
-                            .padding(vertical = 5.dp)
-                            .fillMaxWidth()
-                            .wrapContentHeight(),
-                        shape = MaterialTheme.shapes.medium,
-                        elevation = 5.dp,
-                        backgroundColor = MaterialTheme.colors.secondary
-                    )
-                    {
-                        Column {
-                            Row {
-                                Column(
-                                    Modifier.padding(4.dp)
-                                            .width(550.dp),
-                                    horizontalAlignment = Alignment.Start
-                                ) {
-                                    Text(
-                                        text = elem.key,
-                                        style = MaterialTheme.typography.h6,
-                                        color = MaterialTheme.colors.onSecondary,
-                                    )
-                                }
-                                Column(
-                                    Modifier.padding(4.dp)
-                                            .fillMaxWidth(),
-                                    horizontalAlignment = Alignment.End
-                                ) {
-                                    Text(
-                                        text = elem.domain,
-                                        style = MaterialTheme.typography.caption,
-                                        color = MaterialTheme.colors.onPrimary
-                                    )
-                                }
-                            }//Row
+                        Card(
+                            modifier = Modifier.padding(vertical = 5.dp)
+                                               .fillMaxWidth()
+                                               .wrapContentHeight(),
+                            shape = MaterialTheme.shapes.medium,
+                            elevation = 5.dp,
+                            backgroundColor = MaterialTheme.colors.secondary
+                        )
+                        {
+                            Column {
+                                Row {
+                                    Column(
+                                        Modifier.padding(4.dp)
+                                                .width(550.dp),
+                                        horizontalAlignment = Alignment.Start
+                                    ) {
+                                        Text(
+                                            text = elem.key,
+                                            style = MaterialTheme.typography.h6,
+                                            color = MaterialTheme.colors.onSecondary,
+                                        )
+                                    }
+                                    Column(
+                                        Modifier.padding(4.dp)
+                                                .fillMaxWidth(),
+                                        horizontalAlignment = Alignment.End
+                                    ) {
+                                        Text(
+                                            text = elem.domain,
+                                            style = MaterialTheme.typography.caption,
+                                            color = MaterialTheme.colors.onPrimary
+                                        )
+                                    }
+                                }//Row
 
-                            Row {
-                                Column(
-                                    Modifier.padding(8.dp)
-                                            .fillMaxWidth()
-                                ) {
-                                    Text(
-                                        text = elem.value,
-                                        style = MaterialTheme.typography.subtitle1,
-                                        color = MaterialTheme.colors.onSecondary,
-                                    )
+                                Row {
+                                    Column(
+                                        Modifier.padding(8.dp)
+                                                .fillMaxWidth()
+                                    ) {
+                                        Text(
+                                            text = elem.value,
+                                            style = MaterialTheme.typography.subtitle1,
+                                            color = MaterialTheme.colors.onSecondary,
+                                        )
 
-                                    Spacer(Modifier.height(8.dp))
+                                        Spacer(Modifier.height(8.dp))
 
-                                    Text(
-                                        text = elem.ds_descripcion_interna,
-                                        style = MaterialTheme.typography.caption,
-                                        color = MaterialTheme.colors.onSecondary,
-                                    )
-                                }
-                            }//Row
-                        }//Column
-                    }//card
-                })//items
-            }//lazyColumn
-        }//Box
+                                        Text(
+                                            text = elem.ds_descripcion_interna,
+                                            style = MaterialTheme.typography.caption,
+                                            color = MaterialTheme.colors.onSecondary,
+                                        )
+                                    }
+                                }//Row
+                            }//Column
+                        }//card
+                    })//items
+                }//lazyColumn
+            }//Box
+        }//Column
     }
 }
