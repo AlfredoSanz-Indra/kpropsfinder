@@ -12,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import es.kprops.core.di.UseCaseFactory
 import es.kprops.core.formatLogText
+import es.kprops.core.model.CommandBuildType
+import es.kprops.core.model.CommandFrontTrasLaunchType
 import es.kprops.domain.api.antcases.AntUseCase
 import es.kprops.domain.model.ant.AntResult
 import kotlinx.coroutines.launch
@@ -86,6 +88,16 @@ class CommandsView {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     rowFive(resulttext, onNameChange = { resulttext = it })
+                }
+
+                Spacer(Modifier.height(20.dp))
+
+                Row(
+                    Modifier.background(color = Color.White).width(800.dp),
+                    horizontalArrangement = Arrangement.Start,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    rowTrastienda(resulttext, onNameChange = { resulttext = it })
                 }
 
                 Spacer(Modifier.height(50.dp))
@@ -178,7 +190,7 @@ class CommandsView {
         val coroutineScope = rememberCoroutineScope()
 
         val bakButtonsColor = ButtonDefaults.outlinedButtonColors(
-            backgroundColor = Color(0xFF387780),
+            backgroundColor = Color(0xFF336699),
             contentColor = Color(0xFFF5F5F5),
             disabledContentColor = Color(0XFFe83151)
         )
@@ -191,7 +203,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Back Build All")
                     onNameChange("2.1.1")
-                    antUseCase.backBuildAll()
+                    antUseCase.backBuild(CommandBuildType.BUILD_ALL)
                     logea("\nBack is compiling")
                     onNameChange("2.1.2")
                 }
@@ -199,6 +211,96 @@ class CommandsView {
         )
         {
             Text("Back Build All")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(100.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build Common")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuild(CommandBuildType.BUILD_COMMON)
+                    logea("\nBack Common is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Common")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(100.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build Tienda")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuild(CommandBuildType.BUILD_TIENDA)
+                    logea("\nBack Tienda is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Tienda")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(100.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build Catalogo")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuild(CommandBuildType.BUILD_CATALOG)
+                    logea("\nBack  Catalogo is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Catalg")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(100.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build Cesta")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuild(CommandBuildType.BUILD_CESTA)
+                    logea("\nBack Cesta is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Cesta")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton( modifier = Modifier.width(100.dp),
+            colors = bakButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting Back Build Trastienda")
+                    onNameChange("2.1.1")
+                    antUseCase.backBuild(CommandBuildType.BUILD_TRASTIENDA)
+                    logea("\nBack Trastienda is compiling")
+                    onNameChange("2.1.2")
+                }
+            }
+        )
+        {
+            Text("Trast")
         }
     }
 
@@ -441,6 +543,40 @@ class CommandsView {
             })
         {
             Text("Build Prod")
+        }
+    }
+
+    @Composable
+    private fun rowTrastienda(t: String, onNameChange: (String) -> Unit) {
+        val antUseCase: AntUseCase =  UseCaseFactory.getAntUseCase()
+
+        val coroutineScope = rememberCoroutineScope()
+
+        val copyButtonsColor =  ButtonDefaults.outlinedButtonColors(backgroundColor = Color(0xFFFF9900),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151))
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(250.dp),
+            colors = copyButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting local launch of front trastienda")
+                    onNameChange("7.1.1")
+                    val r: AntResult = antUseCase.launchFrontTrastServer(CommandFrontTrasLaunchType.LAUNCH_LOCAL)
+                    if("OK".equals(r.result)) {
+                        logea("\ntrastienda starter script launched")
+                    }
+                    else {
+                        logea("\nTrastienda launch script KO!")
+                    }
+                    onNameChange("7.1.2")
+                }
+            }
+        )
+        {
+            Text("Launch Trastienda Local")
         }
     }
 

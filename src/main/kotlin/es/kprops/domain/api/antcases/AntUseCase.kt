@@ -1,5 +1,7 @@
 package es.kprops.domain.api.antcases
 
+import es.kprops.core.model.CommandBuildType
+import es.kprops.core.model.CommandFrontTrasLaunchType
 import es.kprops.domain.model.ant.AntResult
 
 /**
@@ -31,5 +33,7 @@ interface AntUseCase {
 
     suspend fun buildProKenobi(): AntResult
 
-    suspend fun backBuildAll(): AntResult
+    suspend fun backBuild(buildType: CommandBuildType): AntResult
+
+    suspend fun launchFrontTrastServer(launchType: CommandFrontTrasLaunchType): AntResult
 }

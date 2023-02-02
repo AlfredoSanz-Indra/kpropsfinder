@@ -1,12 +1,13 @@
 package es.kprops.domain.usecases.antcases
 
 import es.kprops.core.di.RepoFactory
+import es.kprops.core.model.CommandBuildType
+import es.kprops.core.model.CommandFrontTrasLaunchType
 import es.kprops.domain.api.antcases.AntUseCase
 import es.kprops.domain.model.ant.AntAction
 import es.kprops.domain.model.ant.AntResult
 import es.kprops.domain.repository.ant.GitCommand
 import es.kprops.domain.repository.ant.KenobiCommand
-import kotlinx.coroutines.delay
 
 /**
  * @author Alfredo Sanz
@@ -31,7 +32,7 @@ class AntUseCaseImpl : AntUseCase {
         val r: AntResult = this.kenobiCommand.openKenobiCmd(AntAction("Open console Kenoby path"))
         println("AntUseCase - openKenobiCmd result=${r.result}")
 
-        return r;
+        return r
     }
 
    suspend override fun gitLog() {
@@ -95,9 +96,17 @@ class AntUseCaseImpl : AntUseCase {
         return r
     }
 
-    suspend override fun backBuildAll(): AntResult {
-        val r: AntResult = this.kenobiCommand.backBuildAll(AntAction("Make a back compilation"))
+    suspend override fun backBuild(buildType: CommandBuildType): AntResult {
+        val r: AntResult = this.kenobiCommand.backBuildAll(AntAction("Make a back compilation", buildType))
         println("\"AntUseCase - backBuildAll result=${r.result}")
+
+        return r
+    }
+
+    suspend override fun launchFrontTrastServer(launchType: CommandFrontTrasLaunchType): AntResult {
+        println("launchFrontTrastServer launchType $launchType ")
+        val r: AntResult = this.kenobiCommand.launchFrontTrastServer(AntAction("Launch Front Trastienda Server", launchType = launchType))
+        println("\"AntUseCase - launchFrontTrastServer result=${r.result}")
 
         return r
     }
