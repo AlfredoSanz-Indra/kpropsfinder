@@ -42,6 +42,12 @@ class RunCommandApiImpl: CommandApi {
             Commands.SYSTEM_OPEN_BRIDGES.name ->    result = props.get("BAT_FILE_NTOL_SCRIPTS_APACHE_SOURCE") as String + props.get("BAT_FILE_openBridges") as String
             Commands.GIT_PULL_KENOBI.name ->        result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILEgoto_pullkenobi") as String
             Commands.BUILD_ALL_BACK.name ->         result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildback") as String
+            Commands.BUILD_COMMON_BACK.name ->      result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbackcommon") as String
+            Commands.BUILD_TIENDA_BACK.name ->      result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbacktienda") as String
+            Commands.BUILD_CATALOG_BACK.name ->     result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbackcatalogo") as String
+            Commands.BUILD_CESTA_BACK.name ->       result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbackcesta") as String
+            Commands.BUILD_TRASTIENDA_BACK.name ->  result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbacktrastienda") as String
+            Commands.LAUNCH_FRONT_TRASTIENDA_LOCAL.name ->  result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_goto_launchTrastiendaLocalServer") as String
         }
 
         return result

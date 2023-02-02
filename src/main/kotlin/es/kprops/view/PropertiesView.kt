@@ -309,26 +309,15 @@ class PropertiesView {
 
             Box(
                 modifier = Modifier.padding(15.dp)
-                    .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
-                    .fillMaxWidth()
-                    .height(350.dp)
-                    .padding(15.dp)
+                                    .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
+                                    .fillMaxWidth()
+                                    .height(350.dp)
+                                    .padding(15.dp)
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxHeight()
                                        .padding(horizontal = 10.dp)
                 ) {
-
-                    item {
-                        Row(
-                            Modifier.background(color = Color.White)
-                                    .wrapContentHeight()
-                                    .padding(vertical = 0.dp),
-                            horizontalArrangement = Arrangement.Start,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                        }
-                    }
                     items(resultValues.size, itemContent = { item ->
                         val elem = resultValues.get(item)
 

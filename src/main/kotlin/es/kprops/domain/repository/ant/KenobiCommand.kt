@@ -28,4 +28,6 @@ interface KenobiCommand {
     fun buildProKenobi(action: AntAction): AntResult
 
     fun backBuildAll(action: AntAction): AntResult
+
+    fun launchFrontTrastServer(action: AntAction): AntResult
 }

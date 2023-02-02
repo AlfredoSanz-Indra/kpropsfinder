@@ -9,7 +9,12 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.6.1"
+version = "1.6.2"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
 
 repositories {
     google()
@@ -27,6 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
     implementation("com.oracle.database.jdbc:ojdbc11:21.1.0.0")
     implementation("org.slf4j:slf4j-log4j12:1.7.36")
+    implementation("org.jetbrains.compose.material3:material3-desktop:1.2.1")
 
 }
 
@@ -54,7 +60,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.6.1"
+            packageVersion = "1.6.2"
         }
     }
 }

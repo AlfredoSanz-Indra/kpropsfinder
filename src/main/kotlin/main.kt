@@ -8,6 +8,7 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
+import es.kprops.core.model.Clips
 import es.kprops.core.model.Datasources
 import es.kprops.core.model.JQueries
 import es.kprops.core.resources.TheResources
@@ -17,6 +18,7 @@ import java.util.*
 
 const val actionProp: String = "prop"
 const val actionLauncher: String = "LAUNCHER"
+const val envcheckout: String = "ENVCHECKOUT"
 
 /**
  * @author Alfredo Sanz
@@ -35,6 +37,10 @@ private fun app(action: String) {
             val v = LauncherView()
             v.createView()
         }
+        envcheckout -> {
+            val v = EnvironmentchecksView()
+            v.createView()
+        }
     }
 }
 
@@ -44,13 +50,14 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.6.1",
-        state = rememberWindowState(width = 800.dp, height = 710.dp)
+        title = "VF Alfred toolbox  v1.6.2",
+        state = rememberWindowState(width = 850.dp, height = 710.dp)
     ) {
         MenuBar {
             Menu("What's next", mnemonic = 'F') {
                 Item("Launcher", onClick = { action = actionLauncher }, shortcut = KeyShortcut(Key.C, ctrl = true))
                 Item("Properties", onClick = { action = actionProp }, shortcut = KeyShortcut(Key.V, ctrl = true))
+                Item("Env checkout", onClick = { action = envcheckout }, shortcut = KeyShortcut(Key.B, ctrl = true))
             }
         }
         app(action)
@@ -67,4 +74,9 @@ fun main() = application {
     println("initializing -> reading json")
     val qs: JQueries = TheResources.getQueries()
     println(qs)
+
+    println("initializing -> reading json")
+    val clips: Clips = TheResources.getChecksenvironment()
+    println(clips)
+
 }

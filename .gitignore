@@ -18,3 +18,4 @@ gradle-app.setting
 /src/main/resources/datasources.json
 /src/main/resources/queries.json
 /src/main/resources/constantss.properties
+/src/main/resources/checksenvironment.json

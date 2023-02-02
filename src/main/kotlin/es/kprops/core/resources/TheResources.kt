@@ -1,5 +1,6 @@
 package es.kprops.core.resources
 
+import es.kprops.core.model.Clips
 import es.kprops.core.model.Datasources
 import es.kprops.core.model.JQueries
 import java.util.*
@@ -13,6 +14,7 @@ object TheResources {
 private lateinit var constantsProp: Properties
 private lateinit var datasources: Datasources
 private lateinit var queries: JQueries
+private lateinit var clips: Clips
 
 
     fun getConstantsProp(): Properties {
@@ -34,5 +36,12 @@ private lateinit var queries: JQueries
             this.queries = readJsonResources_Queries("queries.json")
         }
         return this.queries
+    }
+
+    fun getChecksenvironment(): Clips {
+        if (!this::clips.isInitialized) {
+            this.clips = readJsonResources_checksenvironment("checksenvironment.json")
+        }
+        return this.clips
     }
 }

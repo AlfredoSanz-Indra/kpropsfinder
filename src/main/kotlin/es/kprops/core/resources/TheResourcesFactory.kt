@@ -1,5 +1,6 @@
 package es.kprops.core.resources
 
+import es.kprops.core.model.Clips
 import es.kprops.core.model.Datasources
 import es.kprops.core.model.JQueries
 import java.util.*
@@ -34,5 +35,13 @@ fun readJsonResources_Queries(fileName: String): JQueries {
     val input: InputStream = loader.getResourceAsStream(fileName)
 
     val result = Json.decodeFromStream<JQueries>(input)
+    return result
+}
+
+fun readJsonResources_checksenvironment(fileName: String): Clips {
+    val loader = Thread.currentThread().contextClassLoader
+    val input: InputStream = loader.getResourceAsStream(fileName)
+
+    val result = Json.decodeFromStream<Clips>(input)
     return result
 }
