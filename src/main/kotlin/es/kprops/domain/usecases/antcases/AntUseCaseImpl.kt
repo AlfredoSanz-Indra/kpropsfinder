@@ -104,9 +104,15 @@ class AntUseCaseImpl : AntUseCase {
     }
 
     suspend override fun launchFrontTrastServer(launchType: CommandFrontTrasLaunchType): AntResult {
-        println("launchFrontTrastServer launchType $launchType ")
         val r: AntResult = this.kenobiCommand.launchFrontTrastServer(AntAction("Launch Front Trastienda Server", launchType = launchType))
         println("\"AntUseCase - launchFrontTrastServer result=${r.result}")
+
+        return r
+    }
+
+    suspend override fun startWeblogic(): AntResult {
+        val r: AntResult = this.kenobiCommand.startWeblogic(AntAction("Launch Weblogic cmd"))
+        println("\"AntUseCase - startWeblogic result=${r.result}")
 
         return r
     }

@@ -152,4 +152,16 @@ class KenobiCommandImpl : KenobiCommand {
         }
         return KenobyResultEntity("OK").toKenobiResult()
     }
+
+    override fun startWeblogic(action: AntAction): AntResult {
+        println("KenobiCommandImpl - startWeblogic")
+        try {
+            this.runCommandApi.doAction(Commands.START_WEBLOGIC)
+        }
+        catch(e: Exception) {
+            println("Error trying to launch: ${e.message}")
+            return KenobyResultEntity("KO").toKenobiResult()
+        }
+        return KenobyResultEntity("OK").toKenobiResult()
+    }
 }
