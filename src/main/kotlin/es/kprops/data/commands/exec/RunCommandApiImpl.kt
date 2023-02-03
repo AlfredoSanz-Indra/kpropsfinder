@@ -48,6 +48,7 @@ class RunCommandApiImpl: CommandApi {
             Commands.BUILD_CESTA_BACK.name ->       result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbackcesta") as String
             Commands.BUILD_TRASTIENDA_BACK.name ->  result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotobuildbacktrastienda") as String
             Commands.LAUNCH_FRONT_TRASTIENDA_LOCAL.name ->  result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_goto_launchTrastiendaLocalServer") as String
+            Commands.START_WEBLOGIC.name ->         result = props.get("BAT_FILE_SOURCE") as String + props.get("BAT_FILE_gotostartweblogic") as String
         }
 
         return result

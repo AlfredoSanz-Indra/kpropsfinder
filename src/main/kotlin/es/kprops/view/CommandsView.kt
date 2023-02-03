@@ -503,6 +503,11 @@ class CommandsView {
             contentColor = Color(0xFFF5F5F5),
             disabledContentColor = Color(0XFFe83151))
 
+        val copyButtonsColorWL =  ButtonDefaults.outlinedButtonColors(
+            backgroundColor = Color(0XFF993300),
+            contentColor = Color(0xFFF5F5F5),
+            disabledContentColor = Color(0XFFe83151))
+
         Spacer(Modifier.width(20.dp))
 
         OutlinedButton(modifier = Modifier.width(200.dp),
@@ -543,6 +548,27 @@ class CommandsView {
             })
         {
             Text("Build Prod")
+        }
+
+        Spacer(Modifier.width(10.dp))
+
+        OutlinedButton(modifier = Modifier.width(200.dp),
+            colors = copyButtonsColorWL,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting weblogic script")
+                    onNameChange("4.3.1")
+                    val r: AntResult = antUseCase.startWeblogic()
+                    if ("OK".equals(r.result)) {
+                        logea("\nstarting script")
+                    } else {
+                        logea("\nWeblogic start script KO")
+                    }
+                    onNameChange("4.3.2")
+                }
+            })
+        {
+            Text("Start Weblogic")
         }
     }
 

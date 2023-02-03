@@ -30,4 +30,6 @@ interface KenobiCommand {
     fun backBuildAll(action: AntAction): AntResult
 
     fun launchFrontTrastServer(action: AntAction): AntResult
+
+    fun startWeblogic(action: AntAction): AntResult
 }
