@@ -44,4 +44,33 @@ class PropDSImpl : PropDS {
         }
         return result
    }
+
+   override fun findPropertiesByValue(_ds: Datasource, _propVal: String): List<Property> {
+        println("PropDSImpl->findPropertiesByValue - dsName: ${_ds.shortName} && property val: $_propVal")
+
+        val jdbi: Jdbi = DBConnectionPool.getConnection(_ds)
+        lateinit var result: List<Property>
+
+        try {
+            val qname: String = TheResources.getConstantsProp().getProperty("QUERY_QUERY-TWO")
+            val query: String = DBQueryFactory.getQueryFromResources(qname, _ds.name)
+
+            println("PropDSImpl->findPropertiesByValue - query: $query")
+
+            result =
+                jdbi.withHandle<List<Property>, RuntimeException>
+                { handle: Handle ->
+                    handle.registerRowMapper(BeanMapper.factory(Property::class.java))
+                    handle.createQuery(query )
+                        .bind("val", _propVal)
+                        .mapTo(Property::class.java)
+                        .list()
+                }
+        }
+        catch (ex: Exception) {
+            println("PropDSImpl->findPropertiesByValue - Exception: ${ex.message}")
+            throw Exception("Error quering properties: ${ex.message}")
+        }
+        return result
+    }
 }

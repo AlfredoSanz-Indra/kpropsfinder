@@ -10,5 +10,7 @@ import es.kprops.domain.model.prop.Property
  */
 interface PropDS {
 
-    fun findPropertiesByName(ds: Datasource, name: String): List<Property>
+    fun findPropertiesByName(_ds: Datasource, _name: String): List<Property>
+
+    fun findPropertiesByValue(_ds: Datasource, _propVal: String): List<Property>
 }

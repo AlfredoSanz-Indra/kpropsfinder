@@ -16,26 +16,52 @@ class PropRepoImpl : PropRepo {
 
     private val propDS: PropDS = DataFactory.getPropDS()
 
-    override fun findProperties(_envName: String, _prop: String): PropResult {
+    override fun findPropertiesByName(environment: String, propName: String): PropResult {
 
-        println("PropRepoImpl->findProperties - _envName: $_envName , property: $_prop")
+        println("PropRepoImpl->findPropertiesByName - _envName: $environment , property: $propName")
         lateinit var result: PropResult
 
         try {
-            val env: Environment = getEnvironment(_envName)
+            val env: Environment = getEnvironment(environment)
 
             val totalProps: MutableList<Property> = ArrayList()
             env.datasources.forEach { it ->
-                    val props: List<Property> = propDS.findPropertiesByName(it, _prop)
+                    val props: List<Property> = propDS.findPropertiesByName(it, propName)
                     props.forEach { p ->  p.dsName = it.shortName }
                     totalProps.addAll(props)
                     val n = props.size
-                    println("PropRepoImpl->findProperties - Found $n props")
+                    println("PropRepoImpl->findPropertiesByName - Found $n props")
             }
             result = PropResult(totalProps, 200)
         }
         catch (ex: Exception) {
-            println("PropRepoImpl->findProperties Exception: ${ex.message}")
+            println("PropRepoImpl->findPropertiesByName Exception: ${ex.message}")
+            result = PropResult(ArrayList(), 500)
+            result.errorMessage = ex.message!!
+        }
+
+        return result
+    }
+
+    override fun findPropertiesByValue(environment: String, propVal: String): PropResult {
+        println("PropRepoImpl->findPropertiesByValue - _envName: $environment , property: $propVal")
+        lateinit var result: PropResult
+
+        try {
+            val env: Environment = getEnvironment(environment)
+
+            val totalProps: MutableList<Property> = ArrayList()
+            env.datasources.forEach { it ->
+                val props: List<Property> = propDS.findPropertiesByValue(it, propVal)
+                props.forEach { p ->  p.dsName = it.shortName }
+                totalProps.addAll(props)
+                val n = props.size
+                println("PropRepoImpl->findPropertiesByValue - Found $n props")
+            }
+            result = PropResult(totalProps, 200)
+        }
+        catch (ex: Exception) {
+            println("PropRepoImpl->findPropertiesByValue Exception: ${ex.message}")
             result = PropResult(ArrayList(), 500)
             result.errorMessage = ex.message!!
         }
