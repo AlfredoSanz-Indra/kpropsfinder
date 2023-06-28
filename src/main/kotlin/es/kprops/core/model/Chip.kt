@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
  * @time 2023
  */
 @Serializable
-data class Clip(
+data class Chip(
     val name: String,
     val label: String,
     val checkType: String,

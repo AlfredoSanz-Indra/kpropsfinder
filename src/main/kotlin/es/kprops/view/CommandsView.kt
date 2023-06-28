@@ -453,7 +453,7 @@ class CommandsView {
                 coroutineScope.launch {
                     logea("\nStarting Copy HID script")
                     onNameChange("3.3.1")
-                    val r: AntResult = antUseCase.copyEnvSit2()
+                    val r: AntResult = antUseCase.copyEnvHid()
                     if ("OK".equals(r.result)) {
                         logea("\nCopying HID files")
                     } else {
@@ -550,7 +550,7 @@ class CommandsView {
             Text("Build Prod")
         }
 
-        Spacer(Modifier.width(10.dp))
+        Spacer(Modifier.width(100.dp))
 
         OutlinedButton(modifier = Modifier.width(200.dp),
             colors = copyButtonsColorWL,
@@ -603,6 +603,29 @@ class CommandsView {
         )
         {
             Text("Launch Trastienda Local")
+        }
+
+        Spacer(Modifier.width(20.dp))
+
+        OutlinedButton(modifier = Modifier.width(250.dp),
+            colors = copyButtonsColor,
+            onClick = {
+                coroutineScope.launch {
+                    logea("\nStarting local launch of front YU")
+                    onNameChange("7.2.1")
+                    val r: AntResult = antUseCase.launchYUServer()
+                    if("OK".equals(r.result)) {
+                        logea("\nYU starter script launched")
+                    }
+                    else {
+                        logea("\nYU launch script KO!")
+                    }
+                    onNameChange("7.2.2")
+                }
+            }
+        )
+        {
+            Text("Launch YU Local")
         }
     }
 

@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "me.asanzma"
-version = "1.6.4"
+version = "1.6.6"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
@@ -60,7 +60,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "kpropsfinder"
-            packageVersion = "1.6.4"
+            packageVersion = "1.6.6"
         }
     }
 }

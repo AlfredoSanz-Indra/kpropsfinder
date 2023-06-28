@@ -31,5 +31,7 @@ interface KenobiCommand {
 
     fun launchFrontTrastServer(action: AntAction): AntResult
 
+    fun launchYUServer(action: AntAction): AntResult
+
     fun startWeblogic(action: AntAction): AntResult
 }

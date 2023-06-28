@@ -37,5 +37,7 @@ interface AntUseCase {
 
     suspend fun launchFrontTrastServer(launchType: CommandFrontTrasLaunchType): AntResult
 
+    suspend fun launchYUServer(): AntResult
+
     suspend fun startWeblogic(): AntResult
 }

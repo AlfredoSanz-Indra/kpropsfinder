@@ -20,12 +20,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.RadioButton
 import androidx.compose.material.RadioButtonDefaults
+import androidx.compose.material.SelectableChipColors
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import org.jdbi.v3.core.Jdbi
 
 /**
  * @author Alfredo Sanz
@@ -163,9 +165,11 @@ class EnvironmentchecksView {
         }
     }
 
-    @OptIn(ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
     @Composable
     private fun rowChecks() {
+
+        val chipsSelected: MutableMap<String, Boolean> = HashMap()
 
         Box(
             modifier = Modifier.padding(15.dp)
@@ -181,21 +185,29 @@ class EnvironmentchecksView {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    var x = 1
-                    for (item in TheResources.getChecksenvironment().clips) {
-                        AssistChip(
-                            onClick = { println("$item.label has been pressed") },
+                    for (item in TheResources.getChecksenvironment().chips) {
+                        chipsSelected.put(item.name, false)
+                        FilterChip(
+                            selected = chipsSelected.getValue(item.name),
+                            onClick = { chipsSelected.put(item.name, !chipsSelected.getValue(item.name))
+                                        println("$item.label has been pressed")
+                                        println("$chipsSelected has changed")
+                                      },
                             label = { Text(item.label) },
-                            //modifier = Modifier.padding(10.dp),
+                            modifier = Modifier,
                             leadingIcon = {
                                 Icon(
-                                    if(x==1) Icons.Filled.Settings else  Icons.Filled.Add,
+                                    when (chipsSelected.getValue(item.name)) {
+                                        true ->  Icons.Filled.Add
+                                        false -> Icons.Filled.Check
+                                    },
                                     contentDescription = "Super todos",
-                                    Modifier.size(AssistChipDefaults.IconSize)
+                                    Modifier.size(FilterChipDefaults.IconSize)
                                 )
-                            }
+                            },
+                            //colors =  SelectableChipColors.
                         )//Chips
-                        x = if(x == 1) 2 else 1
+                        Spacer(Modifier.width(20.dp))
                     }//for
                 }//row
             }//Column

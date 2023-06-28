@@ -8,7 +8,7 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import androidx.compose.ui.window.rememberWindowState
-import es.kprops.core.model.Clips
+import es.kprops.core.model.Chips
 import es.kprops.core.model.Datasources
 import es.kprops.core.model.JQueries
 import es.kprops.core.resources.TheResources
@@ -50,7 +50,7 @@ fun main() = application {
     var action by remember { mutableStateOf(actionLauncher) }
 
     Window(onCloseRequest = ::exitApplication,
-        title = "VF Alfred toolbox  v1.6.4",
+        title = "VF Alfred toolbox  v1.6.6",
         state = rememberWindowState(width = 850.dp, height = 710.dp)
     ) {
         MenuBar {
@@ -76,7 +76,7 @@ fun main() = application {
     println(qs)
 
     println("initializing -> reading json")
-    val clips: Clips = TheResources.getChecksenvironment()
+    val clips: Chips = TheResources.getChecksenvironment()
     println(clips)
 
 }
