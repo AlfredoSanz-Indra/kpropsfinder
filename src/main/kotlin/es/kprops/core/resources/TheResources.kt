@@ -1,6 +1,6 @@
 package es.kprops.core.resources
 
-import es.kprops.core.model.Clips
+import es.kprops.core.model.Chips
 import es.kprops.core.model.Datasources
 import es.kprops.core.model.JQueries
 import java.util.*
@@ -14,7 +14,7 @@ object TheResources {
 private lateinit var constantsProp: Properties
 private lateinit var datasources: Datasources
 private lateinit var queries: JQueries
-private lateinit var clips: Clips
+private lateinit var chips: Chips
 
 
     fun getConstantsProp(): Properties {
@@ -38,10 +38,10 @@ private lateinit var clips: Clips
         return this.queries
     }
 
-    fun getChecksenvironment(): Clips {
-        if (!this::clips.isInitialized) {
-            this.clips = readJsonResources_checksenvironment("checksenvironment.json")
+    fun getChecksenvironment(): Chips {
+        if (!this::chips.isInitialized) {
+            this.chips = readJsonResources_checksenvironment("checksenvironment.json")
         }
-        return this.clips
+        return this.chips
     }
 }

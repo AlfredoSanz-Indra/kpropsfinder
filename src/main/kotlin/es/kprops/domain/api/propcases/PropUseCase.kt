@@ -5,4 +5,6 @@ import es.kprops.domain.model.prop.PropResult
 interface PropUseCase {
 
     suspend fun findProperties(environment: String, propName: String): PropResult
+
+    suspend fun findPropertiesByValue(environment: String, propVal: String): PropResult
 }

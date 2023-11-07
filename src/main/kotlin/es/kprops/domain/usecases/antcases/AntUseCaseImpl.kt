@@ -110,6 +110,14 @@ class AntUseCaseImpl : AntUseCase {
         return r
     }
 
+    suspend override fun launchYUServer(): AntResult {
+        val r: AntResult = this.kenobiCommand.launchYUServer(AntAction("Launch YU server in a new console"))
+        println("\"AntUseCase - launchYU result=${r.result}")
+
+        return r
+    }
+
+
     suspend override fun startWeblogic(): AntResult {
         val r: AntResult = this.kenobiCommand.startWeblogic(AntAction("Launch Weblogic cmd"))
         println("\"AntUseCase - startWeblogic result=${r.result}")

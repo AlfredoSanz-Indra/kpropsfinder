@@ -14,6 +14,10 @@ class PropUseCaseImpl : PropUseCase {
     private val propCommand: PropRepo = RepoFactory.getPropCommandRepo()
 
     override suspend fun findProperties(environment: String, propName: String): PropResult {
-        return propCommand.findProperties(environment, propName)
+        return propCommand.findPropertiesByName(environment, propName)
+    }
+
+    override suspend fun findPropertiesByValue(environment: String, propVal: String): PropResult {
+        return propCommand.findPropertiesByValue(environment, propVal)
     }
 }

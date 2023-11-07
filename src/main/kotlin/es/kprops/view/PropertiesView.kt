@@ -28,6 +28,7 @@ import es.kprops.core.resources.TheResources
 import es.kprops.domain.api.propcases.PropUseCase
 import es.kprops.domain.model.prop.PropResult
 import es.kprops.domain.model.prop.Property
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -39,15 +40,10 @@ class PropertiesView {
 
     var log: String = "Init Properties View"
 
-    lateinit var selectProp: String
     lateinit var selectEnv: String
 
     private fun logea(t: String) {
         this.log += t
-    }
-
-    private fun setProperty(t: String) {
-        this.selectProp = t
     }
 
     private fun setEnvironment(t: String) {
@@ -58,7 +54,9 @@ class PropertiesView {
     @Composable
     fun createView() {
 
-        var resultProp by rememberSaveable { mutableStateOf("Init") }
+        //var resultProp by rememberSaveable { mutableStateOf("Init") }
+        var searchPropertyName by rememberSaveable { mutableStateOf("")  }
+        var searchPropertyValue by rememberSaveable { mutableStateOf("")  }
 
         val resultValues:  List<Property> = ArrayList()
         var resultBut by rememberSaveable { mutableStateOf(resultValues) }
@@ -86,7 +84,7 @@ class PropertiesView {
                      horizontalArrangement = Arrangement.Start,
                      verticalAlignment = Alignment.CenterVertically
                 ) {
-                    rowOne( onNameChange = { resultProp = it })
+                    rowSearchTexts( onNameChange = { searchPropertyName = it }, onValueChange = { searchPropertyValue = it })
                 }
 
                 Spacer(Modifier.height(20.dp))
@@ -98,7 +96,7 @@ class PropertiesView {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    rowTwo()
+                    rowEnv()
                 }
 
                 Spacer(Modifier.height(20.dp))
@@ -110,7 +108,7 @@ class PropertiesView {
                     horizontalArrangement = Arrangement.Start,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    rowThree(onValueChange = { resultBut = it })
+                    rowButtons(onValueChange = { resultBut = it }, searchPropertyName, searchPropertyValue, resultBut)
                 }
 
                 //LOG
@@ -142,44 +140,87 @@ class PropertiesView {
      * Textfield
      */
     @Composable
-    private fun rowOne(onNameChange: (String) -> Unit) {
+    private fun rowSearchTexts(onNameChange: (String) -> Unit, onValueChange: (String) -> Unit) {
 
         Spacer(Modifier.width(20.dp).height(20.dp))
 
         val maxLength = 30
-        var textF by rememberSaveable { mutableStateOf(TextFieldValue("", TextRange(0, 7))) }
+        var txSearchName by rememberSaveable { mutableStateOf(TextFieldValue("", TextRange(0, 7))) }
+        var txSearchValue by rememberSaveable { mutableStateOf(TextFieldValue("", TextRange(0, 7))) }
 
-        OutlinedTextField(
-            value = textF,
-            modifier = Modifier.width(600.dp),
-            onValueChange = {
-                             if (it.text.length <= maxLength) {
-                                textF = it
-                                this.setProperty(textF.text)
-                                onNameChange("1.1.1")
-                             }
-                            },
-            label = { Text("Property name") },
-            shape = MaterialTheme.shapes.small,
-            placeholder = { Text(text = "*Property name") },
-            singleLine = true,
-            colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color(0xFF7BB661),
-                                                               placeholderColor = Color(0xFF7BB661),
-                                                               focusedLabelColor =  Color(0xFF7BB661),
-                                                               unfocusedLabelColor = Color.Gray,
-                                                               unfocusedBorderColor = Color.LightGray,
-                                                               disabledPlaceholderColor = Color.LightGray,
-                                                               textColor = Color.Black,
-                                                               disabledTextColor = Color.Gray
-                                                               )
-        )
+        Column(Modifier.selectableGroup()) {
+            Row(
+                Modifier.background(color = Color.White)
+                        .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+                OutlinedTextField(
+                    value = txSearchName,
+                    modifier = Modifier.width(600.dp),
+                    onValueChange = {
+                                     if (it.text.length <= maxLength) {
+                                         txSearchName = it
+                                         onNameChange(txSearchName.text)
+                                     }
+                                    },
+                    label = { Text("Property name") },
+                    shape = MaterialTheme.shapes.small,
+                    placeholder = { Text(text = "*Property name") },
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color(0xFF7BB661),
+                                                                       placeholderColor = Color(0xFF7BB661),
+                                                                       focusedLabelColor =  Color(0xFF7BB661),
+                                                                       unfocusedLabelColor = Gray,
+                                                                       unfocusedBorderColor = Color.LightGray,
+                                                                       disabledPlaceholderColor = Color.LightGray,
+                                                                       textColor = Color.Black,
+                                                                       disabledTextColor = Gray
+                                                                       )
+            )}
+
+            Spacer(Modifier.height(20.dp))
+
+            Row(
+                Modifier.background(color = Color.White)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically
+            )
+            {
+                OutlinedTextField(
+                    value = txSearchValue,
+                    modifier = Modifier.width(600.dp),
+                    onValueChange = {
+                        if (it.text.length <= maxLength) {
+                            txSearchValue = it
+                            onValueChange(txSearchValue.text)
+                        }
+                    },
+                    label = { Text("Property value") },
+                    shape = MaterialTheme.shapes.small,
+                    placeholder = { Text(text = "*Property value") },
+                    singleLine = true,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(focusedBorderColor = Color(0xFF7BB661),
+                        placeholderColor = Color(0xFF7BB661),
+                        focusedLabelColor =  Color(0xFF7BB661),
+                        unfocusedLabelColor = Gray,
+                        unfocusedBorderColor = Color.LightGray,
+                        disabledPlaceholderColor = Color.LightGray,
+                        textColor = Color.Black,
+                        disabledTextColor = Gray
+                    )
+                )
+            }//Row
+        }//Column
     }
 
     /**
      * RadioButtons
      */
     @Composable
-    private fun rowTwo() {
+    private fun rowEnv() {
 
         Spacer(Modifier.width(20.dp).height(20.dp))
 
@@ -198,7 +239,7 @@ class PropertiesView {
             ) {
                 radioOptions.forEach { text ->
                     Column(
-                        Modifier.height(56.dp)
+                        Modifier.height(30.dp)
                                 .selectable(
                                             selected = (text == selectedOption),
                                             onClick = {
@@ -214,8 +255,8 @@ class PropertiesView {
                                 selected = (text == selectedOption),
                                 onClick = null,
                                 colors = RadioButtonDefaults.colors(selectedColor = Color(0xFF7BB661),
-                                                                    unselectedColor = Color.Gray,
-                                                                    disabledColor = Color.Gray
+                                                                    unselectedColor = Gray,
+                                                                    disabledColor = Gray
                                                                    )
                             )
                             Text(
@@ -234,11 +275,7 @@ class PropertiesView {
      * Button
      */
     @Composable
-    private fun rowThree(onValueChange: (List<Property>) -> Unit) {
-
-        val propUseCase: PropUseCase =  UseCaseFactory.getPropUseCase()
-
-        val coroutineScope = rememberCoroutineScope()
+    private fun rowButtons(onValueChange: (List<Property>) -> Unit, searchPropertyName: String, searchPropertyValue: String, resultValues: List<Property>) {
 
         val gitButtonsColor =  ButtonDefaults.outlinedButtonColors(backgroundColor = Color(0xFF7BB661),
                                                                    contentColor = Color(0xFFF5F5F5),
@@ -246,73 +283,124 @@ class PropertiesView {
 
         Spacer(Modifier.width(20.dp))
 
+        val coroutineScope = rememberCoroutineScope()
         val emptyList: List<Property> = ArrayList()
+        val nValues: String = resultValues.size.toString()
+        var buttonPressed by rememberSaveable { mutableStateOf(false) }
 
-        OutlinedButton( modifier = Modifier.width(200.dp),
-            colors = gitButtonsColor,
-            onClick = {
-                        if((::selectProp.isInitialized && !selectProp.isEmpty())  &&
-                            (::selectEnv.isInitialized && !selectEnv.isEmpty())) {
-
-                            var  r: PropResult
-                            coroutineScope.launch(Dispatchers.IO) {
-                                r = propUseCase.findProperties(selectEnv, selectProp)
-
-                                var resultTrace = "\nPropertiesView->findProperties - result . status: ${r.status}, elements: ${r.propList.size} "
-                                if(300 <= r.status) {
-                                    resultTrace += ", error: ${r.errorMessage}"
-                                    val errP = Property()
-                                    errP.id = 1
-                                    errP.key = "Error"
-                                    errP.value = resultTrace
-                                    val errPList: MutableList<Property> = ArrayList()
-                                    errPList.add(errP)
-                                    r = PropResult(errPList, r.status)
-                                }
-                                println(resultTrace)
-                                onValueChange(r.propList)
-                            }
-                            logea("\nPerforming search . property: $selectProp, env: $selectEnv ")
-                            onValueChange(emptyList)
+        Row {
+            OutlinedButton(modifier = Modifier.width(200.dp),
+                colors = gitButtonsColor,
+                onClick = {
+                    if (::selectEnv.isInitialized && !selectEnv.isEmpty()) {
+                        if (!searchPropertyName.isNullOrEmpty() && !searchPropertyName.isNullOrBlank()) {
+                            logea("\nPerforming search by Name . property n: $searchPropertyName, env: $selectEnv ")
+                            searchPropertyByName(coroutineScope, onValueChange, searchPropertyName, onButtonPressed = { buttonPressed = it })
+                        } else if (!searchPropertyValue.isNullOrEmpty() && !searchPropertyValue.isNullOrBlank()) {
+                            logea("\nPerforming search by Value . property v: $searchPropertyValue, env: $selectEnv ")
+                            searchPropertyByValue(coroutineScope, onValueChange, searchPropertyValue, onButtonPressed = { buttonPressed = it })
                         }
-                        else {
-                            onValueChange(emptyList)
-                            logea("\nresult 406 . Not all Fields are selected")
-                            println("result 406 . Not all Fields are selected")
-                            onValueChange(emptyList)
-                        }
-                     }
-        )
-        {
-            Text("Execute")
+                        onValueChange(emptyList)
+                    } else {
+                        onValueChange(emptyList)
+                        logea("\nresult 406 . Missing required fields")
+                        println("result 406 . Missing required fields")
+                        onValueChange(emptyList)
+                    }
+                }
+            )
+            {
+                Text("Search")
+            }
+
+            Spacer(Modifier.width(20.dp))
+
+            Text(text = "Properties Found ($nValues)",
+                 Modifier.padding(vertical = 18.dp),
+                 style = MaterialTheme.typography.body1,
+                 color = MaterialTheme.colors.onPrimary
+            )
+
+            if(buttonPressed) {
+                Spacer(Modifier.width(20.dp))
+
+                CircularProgressIndicator()
+            }
+        }//row
+    }
+
+
+    private fun searchPropertyByName(coroutineScope: CoroutineScope,
+                                     onValueChange: (List<Property>) -> Unit,
+                                     _searchPropertyName: String,
+                                     onButtonPressed: (Boolean) -> Unit) {
+
+        val propUseCase: PropUseCase =  UseCaseFactory.getPropUseCase()
+
+        var  r: PropResult
+        coroutineScope.launch(Dispatchers.IO) {
+            onButtonPressed(true)
+            r = propUseCase.findProperties(selectEnv, _searchPropertyName)
+
+            var resultTrace = "\nPropertiesView->searchPropertyByName - result . status: ${r.status}, elements: ${r.propList.size} "
+            if(300 <= r.status) {
+                resultTrace += ", error: ${r.errorMessage}"
+                val errP = Property()
+                errP.id = 1
+                errP.key = "Error"
+                errP.value = resultTrace
+                val errPList: MutableList<Property> = ArrayList()
+                errPList.add(errP)
+                r = PropResult(errPList, r.status)
+            }
+            println(resultTrace)
+            onValueChange(r.propList)
+            onButtonPressed(false)
+        }
+    }
+
+    private fun searchPropertyByValue(coroutineScope: CoroutineScope,
+                                      onValueChange: (List<Property>) -> Unit,
+                                      _searchPropertyValue: String,
+                                      onButtonPressed: (Boolean) -> Unit) {
+
+        val propUseCase: PropUseCase =  UseCaseFactory.getPropUseCase()
+
+        var  r: PropResult
+        coroutineScope.launch(Dispatchers.IO) {
+            onButtonPressed(true)
+            r = propUseCase.findPropertiesByValue(selectEnv, _searchPropertyValue)
+
+            var resultTrace = "\nPropertiesView->searchPropertyByValue - result . status: ${r.status}, elements: ${r.propList.size} "
+            if(300 <= r.status) {
+                resultTrace += ", error: ${r.errorMessage}"
+                val errP = Property()
+                errP.id = 1
+                errP.key = "Error"
+                errP.value = resultTrace
+                val errPList: MutableList<Property> = ArrayList()
+                errPList.add(errP)
+                r = PropResult(errPList, r.status)
+            }
+            println(resultTrace)
+            onValueChange(r.propList)
+            onButtonPressed(false)
         }
     }
 
     @Composable
     private fun resultDataRow(resultValues: List<Property>) {
 
-        val nValues: String = resultValues.size.toString()
-
         Column(
             Modifier.padding(4.dp)
                     .fillMaxWidth()
         ) {
-            Row (modifier = Modifier.padding(horizontal = 20.dp)) {
-                Text(
-                    text = "Properties Found ($nValues)",
-                    style = MaterialTheme.typography.body1,
-                    color = MaterialTheme.colors.onPrimary
-                )
-            }//Row
-
-            Spacer(Modifier.height(10.dp))
-
             Box(
                 modifier = Modifier.padding(15.dp)
-                                    .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
-                                    .fillMaxWidth()
-                                    .height(350.dp)
-                                    .padding(15.dp)
+                                   .border(2.dp, color = Gray, shape = RoundedCornerShape(16.dp))
+                                   .fillMaxWidth()
+                                   .height(350.dp)
+                                   .padding(15.dp)
             ) {
                 LazyColumn(
                     modifier = Modifier.fillMaxHeight()
